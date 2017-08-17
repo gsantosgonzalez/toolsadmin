@@ -27,13 +27,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 // Tools
 Route::get('tools', 'ToolsController@main')->name('tools');
 Route::get('tools/create', 'ToolsController@create')->name('createTool');
-Route::get('tools/update', 'ToolsController@update')->name('updateTool');
+Route::post('tools/update', 'ToolsController@update')->name('updateTool');
 Route::post('tools', 'ToolsController@store');
-Route::get('getTools', function() {
-    $tools = Tool::all();
-    $tools->load('area', 'type', 'responsible');
-    return $tools;
-})->name('getTools');
+Route::get('getTools', 'ToolsController@index')->name('getTools');
 
 //Types
 Route::get('/types', function() {
