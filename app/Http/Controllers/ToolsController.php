@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 use Validator;
 
 use App\Area;
@@ -23,22 +25,22 @@ class ToolsController extends Controller
         if(request('order')){
             if(request('filter')){
                 $tools = Tool::where(request('filter'), '=', request('value'))->orderBy(request('order'), 'asc')->get();
-                $tools->load('area', 'type', 'responsible');
+                $tools->load('area', 'type', 'responsible', 'toolContracts');
                 return $tools;
             }
             else {
                 $tools = Tool::orderBy(request('order'), 'asc')->get();
-                $tools->load('area', 'type', 'responsible');
+                $tools->load('area', 'type', 'responsible', 'toolContracts');
                 return $tools;
             }
         }
         if(request('filter')){
             $tools = Tool::where(request('filter'), '=', request('value'))->get();
-            $tools->load('area', 'type', 'responsible');
+            $tools->load('area', 'type', 'responsible', 'toolContracts');
             return $tools;
         }
         $tools = Tool::all();
-        $tools->load('area', 'type', 'responsible');
+        $tools->load('area', 'type', 'responsible', 'toolContracts');
         return $tools;
     }
 
@@ -72,7 +74,10 @@ class ToolsController extends Controller
     public function update(Request $request)
     {
         $validator = Validator::make($request->input, [
-            'name' => 'required|unique:tools',
+            'name' => [
+                'required',
+                Rule::unique('tools')->ignore($request->id)
+            ],
             'description' => 'required',
             'type_id' => 'required|exists:types,id',
             'area_id' => 'required|exists:areas,id',
@@ -92,6 +97,10 @@ class ToolsController extends Controller
     {
         Tool::find($id)->delete();
         return response()->json(['status' => 1]);
+    }
+
+    public function getFilteredTools(Request $request) {
+
     }
 
 }

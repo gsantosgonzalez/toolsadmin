@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-lg-12 margin-tb">
                     <div class="pull-left">
-                        <h2>Listado de herramientas</h2>
+                        <h2>{{ show_name }}</h2>
                     </div>
                     <div class="pull-right">
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#create-tool">
@@ -21,17 +21,19 @@
                     		<th>Descripción</th>
                             <th><a href="#" @click="getOrderedTools('area_id')">Area</a></th>
                             <th><a href="#" @click="getOrderedTools('type_id')">Tipo</a></th>
-                            <th>Responsable</th>
+                            <!-- <th>Fecha de Adquisición</th>
+                            <th>Costo</th> -->
                             <th>Acciones</th>
                         </tr>
                 	</thead>
                 	<tbody>
                 		<tr v-for="tool in tools">
-                			<td>{{ tool.name }}</td>
+                			<td><a href="#" role="button" @click="showTool(tool)" data-toggle="modal" data-target="#show-tool">{{ tool.name }}</a></td>
                 			<td>{{ tool.description }}</td>
                             <td><a href="#" role="button" @click="getFilteredTools('area_id', tool.area_id)">{{ tool.area.area_name }}</a></td>
                             <td><a href="#" role="button" @click="getFilteredTools('type_id', tool.type_id)">{{ tool.type.type_name }}</a></td>
-                            <td>{{ tool.responsible.responsible_name }}</td>
+                            <!-- <td>{{ tool.tool_contracts[0].contract_date }}</td>
+                            <td>{{ tool.tool_contracts[0].cost }}</td> -->
                             <td>
                                 <button @click="editTool(tool)" class="btn btn-warning btn-xs" v-bind:value="tool.id" data-toggle="modal" data-target="#edit-tool"><span class="glyphicon glyphicon-pencil"></span></button>&nbsp;
                                 <button @click="deleteTool(tool)" class="btn btn-danger btn-xs" v-bind:value="tool.id"><span class="glyphicon glyphicon-remove"></span></button>
@@ -211,6 +213,32 @@
             </div>
             <!-- Edit Tool Modal -->
 
+            <!-- Show Tool Modal -->
+            <div class="modal fade" id="show-tool" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" @click="cierraModal('show-tool')" aria-label="Close"><span class="glyphicon glyphicon-remove"></span></button>
+                            <h4 class="modal-title" id="myModalLabel">{{ showedTool.name }}</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>{{ showedTool.description }}</p>
+                            <p>Área: <b>{{ showedTool.area.area_name }}</b></p>
+                            <p>Tipo: <b>{{ showedTool.type.type_name }}</b></p>
+                            <p>Responsable: <b>{{ showedTool.responsible.responsible_name }}</b></p>
+                            <p v-for="tool_contracts in showedTool.tool_contracts">
+                                Fecha de Contratación: <b>{{ tool_contracts.contract_date }}</b>
+                                Costo: <b>{{ tool_contracts.cost }}</b>
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Show Tool Modal -->
+
         </div> <!-- row-main -->
     </div> <!-- container -->
     
@@ -223,6 +251,8 @@
                 types: [],
                 areas: [],
                 responsibles: [],
+                frecuencies: [],
+                show_name: this.$root.app_name,
                 order: '',
                 filter: '',
                 filterValue: '',
@@ -243,6 +273,17 @@
                 },
                 formErrors:{},
                 formErrorsUpdate:{},
+                showedTool: {
+                    'name': '',
+                    'description': '',
+                    'area_id': '',
+                    'type_id': '',
+                    'responsible_id': '',
+                    'area': [],
+                    'type': [],
+                    'responsible': [],
+                    'toolContracts': [],
+                },
             }
         },
         ready: function(){
@@ -262,6 +303,11 @@
             axios.get('/responsibles').then(response => {
                 $.each(response.data, (index, value) => {
                     this.responsibles.push(value);
+                })
+            });
+            axios.get('/frecuencies').then(response => {
+                $.each(response.data, (index, value) => {
+                    this.frecuencies.push(value);
                 })
             });
             axios.get('getTools').then(response => {
@@ -324,6 +370,9 @@
                         })
                     });
                 }
+            },
+            showTool(tool){
+                this.showedTool = tool;
             },
             registerTool() {
                 var self = this;

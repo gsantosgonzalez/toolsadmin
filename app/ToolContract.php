@@ -19,4 +19,16 @@ class ToolContract extends Model
      * @var array
      */
     protected $fillable = ['contract_date', 'cost', 'frecuency'];
+
+    /**
+     * ToolContract belongs to Tool.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function tool()
+    {
+        // belongsTo(RelatedModel, foreignKey = tool_id, keyOnRelatedModel = id)
+        return $this->belongsTo(Tool::class);
+    }
+
 }

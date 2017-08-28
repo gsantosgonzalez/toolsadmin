@@ -5,16 +5,7 @@ use App\Responsible;
 use App\Tool;
 use App\Type;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use Illuminate\Support\Facades\DB;
 
 Route::get('/', function () {
     return view('welcome');
@@ -31,6 +22,10 @@ Route::post('tools/update', 'ToolsController@update')->name('updateTool');
 Route::post('tools', 'ToolsController@store');
 Route::get('getTools', 'ToolsController@index')->name('getTools');
 
+//Dashboard
+Route::get('dashboard', 'DashboardController@index')->name('dashboard');
+Route::get('dashboard/tops', 'DashboardController@getTops')->name('getTops');
+
 //Types
 Route::get('/types', function() {
 	return Type::all();
@@ -44,4 +39,9 @@ Route::get('/areas', function() {
 //Responsibles
 Route::get('/responsibles', function() {
     return Responsible::all();
+});
+
+//Frecuencies
+Route::get('/frecuencies', function() {
+	return DB::table('frecuency')->get();
 });

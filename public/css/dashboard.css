@@ -544,6 +544,23 @@ header {
     position: relative;
     
 }
+
+.glyphicon-number:before {
+    content: "\0023";
+}
+
+.glyph-lg{
+    font-size: 3em;
+}
+
+.medium-font{
+    font-size: 20px;
+}
+
+.huge{
+    font-size: 30px;
+}
+
 .modal{
     top: 20%; 
 }

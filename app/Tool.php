@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Tool extends Model
 {
@@ -51,6 +52,17 @@ class Tool extends Model
     {
         // belongsTo(RelatedModel, foreignKey = responsible_id, keyOnRelatedModel = id)
         return $this->belongsTo(Responsible::class);
+    }
+
+    /**
+     * Tool has many ToolContracts.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function toolContracts()
+    {
+        // hasMany(RelatedModel, foreignKeyOnRelatedModel = tool_id, localKey = id)
+        return $this->hasMany(ToolContract::class)->where('status', '=', 1);
     }
 
 }
