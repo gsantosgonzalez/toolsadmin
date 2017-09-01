@@ -546,7 +546,7 @@ header {
 }
 
 .glyphicon-number:before {
-    content: "#";
+    content: "\0023";
 }
 
 .glyph-lg{
