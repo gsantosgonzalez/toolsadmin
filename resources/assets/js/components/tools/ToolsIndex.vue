@@ -35,8 +35,8 @@
                             <!-- <td>{{ tool.tool_contracts[0].contract_date }}</td>
                             <td>{{ tool.tool_contracts[0].cost }}</td> -->
                             <td>
-                                <button @click="editTool(tool)" class="btn btn-warning btn-xs" v-bind:value="tool.id" data-toggle="modal" data-target="#edit-tool"><span class="glyphicon glyphicon-pencil"></span></button>&nbsp;
-                                <button @click="deleteTool(tool)" class="btn btn-danger btn-xs" v-bind:value="tool.id"><span class="glyphicon glyphicon-remove"></span></button>
+                                <button @click="editTool(tool)" class="btn btn-warning btn-xs" v-bind:value="tool.id" data-toggle="modal" data-target="#edit-tool"><span class="glyphicon glyphicon-pencil"></span></button>&nbsp;&nbsp;
+                                <button @click="deleteTool(tool)" class="btn btn-danger btn-xs" v-bind:value="tool.id"><span class="glyphicon glyphicon-trash"></span></button>
                             </td>
                 		</tr>
                 	</tbody>
@@ -120,7 +120,7 @@
                                 <div class="form-group ">
                                     <button type="button" id="button" class="btn btn-primary btn-lg btn-block" @click="registerTool">Registrar</button>
                                 </div>
-                                
+
                             </form>
                         </div>
                     </div>
@@ -205,7 +205,7 @@
                                 <div class="form-group ">
                                     <button type="button" id="button" class="btn btn-primary btn-lg btn-block" @click="updateTool(updatedTool.id)">Registrar</button>
                                 </div>
-                                
+
                             </form>
                         </div>
                     </div>
@@ -232,7 +232,7 @@
                             </p>
                         </div>
                         <div class="modal-footer">
-                            
+
                         </div>
                     </div>
                 </div>
@@ -241,7 +241,7 @@
 
         </div> <!-- row-main -->
     </div> <!-- container -->
-    
+
 </template>
 <script>
     export default {

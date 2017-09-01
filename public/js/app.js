@@ -899,7 +899,9 @@ Vue.component('dashboard', __webpack_require__(40));
 
 var app = new Vue({
   el: '#app',
-  data: {},
+  data: {
+    app_name: 'Listado de herramientas'
+  },
   methods: {}
 });
 
@@ -42183,6 +42185,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             areas: [],
             responsibles: [],
             frecuencies: [],
+            show_name: this.$root.app_name,
             order: '',
             filter: '',
             filterValue: '',
@@ -42383,7 +42386,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "container"
   }, [_c('div', {
     staticClass: "row main"
-  }, [_vm._m(0), _vm._v(" "), _c('div', {
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-lg-12 margin-tb"
+  }, [_c('div', {
+    staticClass: "pull-left"
+  }, [_c('h2', [_vm._v(_vm._s(_vm.show_name))])]), _vm._v(" "), _vm._m(0)])]), _vm._v(" "), _c('div', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -42467,7 +42476,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('span', {
       staticClass: "glyphicon glyphicon-pencil"
-    })]), _vm._v(" \n                                "), _c('button', {
+    })]), _vm._v("  \n                                "), _c('button', {
       staticClass: "btn btn-danger btn-xs",
       attrs: {
         "value": tool.id
@@ -42478,7 +42487,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     }, [_c('span', {
-      staticClass: "glyphicon glyphicon-remove"
+      staticClass: "glyphicon glyphicon-trash"
     })])])])
   }))])]), _vm._v(" "), _c('div', {
     staticClass: "modal fade",
@@ -43059,12 +43068,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-lg-12 margin-tb"
-  }, [_c('div', {
-    staticClass: "pull-left"
-  }, [_c('h2', [_vm._v("Listado de herramientas")])]), _vm._v(" "), _c('div', {
     staticClass: "pull-right"
   }, [_c('button', {
     staticClass: "btn btn-primary",
@@ -43073,7 +43076,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "data-toggle": "modal",
       "data-target": "#create-tool"
     }
-  }, [_vm._v("\n                            Registrar\n                        ")])])])])
+  }, [_vm._v("\n                            Registrar\n                        ")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('span', {
     staticClass: "input-group-addon"
@@ -43389,64 +43392,65 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            total: '',
-            topPrice: '',
-            lowPrice: '',
-            newer: '',
-            older: '',
-            filtro: '',
-            type: '',
-            types: [],
-            area: '',
-            areas: [],
-            tools: []
-        };
-    },
+     data: function data() {
+          return {
+               total: '',
+               topPrice: '',
+               lowPrice: '',
+               newer: '',
+               older: '',
+               filtro: '',
+               type: '',
+               types: [],
+               area: '',
+               areas: [],
+               tools: []
+          };
+     },
 
-    mounted: function mounted() {
-        this.getTops();
-    },
-    methods: {
-        getTops: function getTops() {
-            var _this = this;
+     ready: function ready() {},
+     mounted: function mounted() {
+          this.getTops();
+     },
+     methods: {
+          getTops: function getTops() {
+               var _this = this;
 
-            this.total = '';
-            this.topPrice = '';
-            this.lowPrice = '';
-            this.newer = '';
-            this.older = '';
-            axios.get('dashboard/tops').then(function (response) {
-                _this.total = response.data.total;
-                _this.topPrice = response.data.topPrice[0];
-                _this.lowPrice = response.data.lowPrice[0];
-                _this.newer = response.data.newer[0];
-                _this.older = response.data.older[0];
-            });
-        }
-    },
-    watch: {
-        filtro: function filtro(val) {
-            var _this2 = this;
+               this.total = '';
+               this.topPrice = '';
+               this.lowPrice = '';
+               this.newer = '';
+               this.older = '';
+               axios.get('dashboard/tops').then(function (response) {
+                    _this.total = response.data.total;
+                    _this.topPrice = response.data.topPrice[0];
+                    _this.lowPrice = response.data.lowPrice[0];
+                    _this.newer = response.data.newer[0];
+                    _this.older = response.data.older[0];
+               });
+          }
+     },
+     watch: {
+          filtro: function filtro(val) {
+               var _this2 = this;
 
-            if (val == 'type_id') {
-                this.areas = [];
-                axios.get('/types').then(function (response) {
-                    $.each(response.data, function (index, value) {
-                        _this2.types.push(value);
+               if (val == 'type_id') {
+                    this.areas = [];
+                    axios.get('/types').then(function (response) {
+                         $.each(response.data, function (index, value) {
+                              _this2.types.push(value);
+                         });
                     });
-                });
-            } else {
-                this.types = [];
-                axios.get('/areas').then(function (response) {
-                    $.each(response.data, function (index, value) {
-                        _this2.areas.push(value);
+               } else {
+                    this.types = [];
+                    axios.get('/areas').then(function (response) {
+                         $.each(response.data, function (index, value) {
+                              _this2.areas.push(value);
+                         });
                     });
-                });
-            }
-        }
-    }
+               }
+          }
+     }
 });
 
 /***/ }),
