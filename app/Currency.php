@@ -4,21 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Employee extends Model
+class Currency extends Model
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'employees';
-
-    /**
-     * Fields that can be mass assigned.
-     *
-     * @var array
-     */
-    protected $fillable = ['name'];
+    protected $table = 'currencies';
 
     /**
      * The attributes that should be hidden for arrays.
@@ -29,15 +22,22 @@ class Employee extends Model
         'created_at', 'updated_at'
     ];
 
+    /**
+     * Fields that can be mass assigned.
+     *
+     * @var array
+     */
+    protected $fillable = ['name'];
 
     /**
-     * Responsible has many Tools.
+     * Currency has many ContractTools.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function tools()
+    public function contractTools()
     {
-        // hasMany(RelatedModel, foreignKeyOnRelatedModel = responsible_id, localKey = id)
-        return $this->hasMany(Tool::class);
+    	// hasMany(RelatedModel, foreignKeyOnRelatedModel = currency_id, localKey = id)
+    	return $this->hasMany(ContractTool::class);
     }
+
 }

@@ -46,52 +46,49 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <button type="button" class="close" @click="cierraModal('create-tool')" aria-label="Close"><span class="glyphicon glyphicon-remove"></span></button>
+                            <button type="button" class="close" @click="cierraModal('create-tool')" aria-label="Close"><span class="glyph-md">&times;</span></button>
                             <h4 class="modal-title" id="myModalLabel">Registrar Herramienta</h4>
                         </div>
                         <div class="modal-body">
-                            <form class="" method="POST">
-                                <div class="form-group">
-                                    <label for="tool_name" class="cols-sm-2 control-label">Nombre de la herramienta</label>
-                                    <div class="cols-sm-10">
-                                        <div class="input-group">
-                                            <span class="input-group-addon"><i class="glyphicon glyphicon-wrench" aria-hidden="true"></i></span>
-                                            <input type="text" class="form-control" name="tool_name" id="tool_name" placeholder="Nombre de la herramienta" v-model="newTool.name"/>
-                                            <span v-if="formErrors['name']" class="error text-danger">{{ formErrors['name'] }}</span>
-                                        </div>
+                            <div class="form-group">
+                                <label for="tool_name" class="control-label">Nombre</label>
+                                <div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-flag" aria-hidden="true"></i></span>
+                                        <input type="text" class="form-control" name="tool_name" id="tool_name" placeholder="Nombre de la herramienta" v-model="newTool.name"/>
                                     </div>
+                                    <span v-if="formErrors['name']" class="error text-danger">{{ formErrors['name'] }}</span>
                                 </div>
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="description" class="cols-sm-2 control-label">Descripción</label>
-                                    <div class="cols-sm-10">
-                                        <div class="input-group">
-                                            <span class="input-group-addon"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i></span>
-                                            <input type="text" class="form-control" name="description" id="description" placeholder="Ingresa la descripción"  v-model="newTool.description"/>
-                                            <span v-if="formErrors['description']" class="error text-danger">{{ formErrors['description'] }}</span>
-                                        </div>
+                            <div class="form-group">
+                                <label for="description" class="control-label">Descripción</label>
+                                <div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-flag" aria-hidden="true"></i></span>
+                                        <input type="text" class="form-control" name="description" id="description" placeholder="Ingresa la descripción"  v-model="newTool.description"/>
                                     </div>
+                                    <span v-if="formErrors['description']" class="error text-danger">{{ formErrors['description'] }}</span>
                                 </div>
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="toolType" class="cols-sm-2 control-label">Tipo de Herramienta</label>
-                                    <div class="cols-sm-10">
-                                        <div class="input-group">
-                                            <span class="input-group-addon"><i class="glyphicon glyphicon-flag" aria-hidden="true"></i></span>
-                                            <select class="form-control" id="typeSelect" v-model="newTool.toolType_id">
-                                                <option value="" disabled selected>Select your option</option>
-                                                <option v-for="toolType in toolTypes" v-bind:value="toolType.id">{{ toolType.name }}</option>
-                                            </select>
-                                            <span v-if="formErrors['toolType_id']" class="error text-danger">{{ formErrors['toolType_id'] }}</span>
-                                        </div>
+                            <div class="form-group">
+                                <label for="toolType" class="control-label">Tipo</label>
+                                <div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-flag" aria-hidden="true"></i></span>
+                                        <select class="form-control" id="typeSelect" v-model="newTool.toolType_id">
+                                            <option value="" disabled selected>Select your option</option>
+                                            <option v-for="toolType in toolTypes" v-bind:value="toolType.id">{{ toolType.name }}</option>
+                                        </select>
                                     </div>
+                                    <span v-if="formErrors['toolType_id']" class="error text-danger">{{ formErrors['toolType_id'] }}</span>
                                 </div>
+                            </div>                                
 
-                                <div class="form-group ">
-                                    <button type="button" id="button" class="btn btn-primary btn-lg btn-block" @click="registerTool">Registrar</button>
-                                </div>
-
-                            </form>
+                            <div class="form-group">
+                                <button type="button" id="button" class="btn btn-primary" @click="registerTool">Registrar</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -103,49 +100,49 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <button type="button" class="close" @click="cierraModal('edit-tool')" aria-label="Close"><span class="glyphicon glyphicon-remove"></span></button>
+                            <button type="button" class="close" @click="cierraModal('edit-tool')" aria-label="Close"><span class="glyph-md">&times;</span></button>
                             <h4 class="modal-title" id="myModalLabel">Editar Herramienta</h4>
                         </div>
                         <div class="modal-body">
                             <form class="" method="POST">
                                 <div class="form-group">
-                                    <label for="tool_name" class="cols-sm-2 control-label">Nombre de la herramienta</label>
-                                    <div class="cols-sm-10">
+                                    <label for="tool_name" class="control-label">Nombre</label>
+                                    <div>
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="glyphicon glyphicon-wrench" aria-hidden="true"></i></span>
                                             <input type="text" class="form-control" name="tool_name" id="tool_name" v-bind:placeholder="updatedTool.name" v-model="updatedTool.name"/>
-                                            <span v-if="formErrorsUpdate['name']" class="error text-danger">{{ formErrorsUpdate['name'] }}</span>
                                         </div>
+                                        <span v-if="formErrorsUpdate['name']" class="error text-danger">{{ formErrorsUpdate['name'] }}</span>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="description" class="cols-sm-2 control-label">Descripción</label>
-                                    <div class="cols-sm-10">
+                                    <label for="description" class="control-label">Descripción</label>
+                                    <div>
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i></span>
                                             <input type="text" class="form-control" name="description" id="description" v-bind:placeholder="updatedTool.description"  v-model="updatedTool.description"/>
-                                            <span v-if="formErrorsUpdate['description']" class="error text-danger">{{ formErrorsUpdate['description'] }}</span>
                                         </div>
+                                        <span v-if="formErrorsUpdate['description']" class="error text-danger">{{ formErrorsUpdate['description'] }}</span>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="type" class="cols-sm-2 control-label">Tipo</label>
-                                    <div class="cols-sm-10">
+                                    <label for="type" class="control-label">Tipo</label>
+                                    <div>
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="glyphicon glyphicon-flag" aria-hidden="true"></i></span>
                                             <select class="form-control" id="typeSelect" v-model="updatedTool.toolType_id">
                                                 <option value="" disabled selected>Select your option</option>
                                                 <option v-for="toolType in toolTypes" v-bind:value="toolType.id" v-bind:class="[updatedTool.toolType_id == toolType.id ? 'selected' : '']">{{ toolType.name }}</option>
                                             </select>
-                                            <span v-if="formErrorsUpdate['toolType_id']" class="error text-danger">{{ formErrorsUpdate['toolType_id'] }}</span>
                                         </div>
+                                        <span v-if="formErrorsUpdate['toolType_id']" class="error text-danger">{{ formErrorsUpdate['toolType_id'] }}</span>
                                     </div>
                                 </div>
 
                                 <div class="form-group ">
-                                    <button type="button" id="button" class="btn btn-primary btn-lg btn-block" @click="updateTool(updatedTool.id)">Actualizar</button>
+                                    <button type="button" id="button" class="btn btn-primary" @click="updateTool(updatedTool.id)">Actualizar</button>
                                 </div>
 
                             </form>
@@ -160,7 +157,7 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <button type="button" class="close" @click="cierraModal('show-tool')" aria-label="Close"><span class="glyphicon glyphicon-remove"></span></button>
+                            <button type="button" class="close" @click="cierraModal('show-tool')" aria-label="Close"><span class="glyph-md">&times;</span></button>
                             <h4 class="modal-title" id="myModalLabel">{{ showedTool.name }}</h4>
                         </div>
                         <div class="modal-body">
@@ -170,9 +167,6 @@
                                 Fecha de Contratación: <b>{{ contract_tools.contract_date }}</b>
                                 Costo por licencia: <b>{{ contract_tools.license_cost }}</b>
                             </p>
-                        </div>
-                        <div class="modal-footer">
-
                         </div>
                     </div>
                 </div>

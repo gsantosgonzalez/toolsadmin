@@ -22,6 +22,16 @@ class Tool extends Model
     protected $fillable = ['name', 'description', 'toolType_id'];
 
     /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'created_at', 'updated_at'
+    ];
+
+
+    /**
      * Tool belongs to ToolType.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

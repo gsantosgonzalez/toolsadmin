@@ -14,6 +14,15 @@ class ToolType extends Model
     protected $table = 'tool_types';
 
     /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'created_at', 'updated_at'
+    ];
+
+    /**
      * Type has many Tools.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

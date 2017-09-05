@@ -23,24 +23,45 @@ class ToolsController extends Controller
     {
         if(request('order')){
             if(request('filter')){
-                $tools = Tool::where(request('filter'), '=', request('value'))->orderBy(request('order'), 'asc')->get();
-                $tools->load('toolTypes', 'contractTools');
+                $tools = Tool::withCount(['contractTools' => function ($query) {
+                    $query->where('status', '=', 1);
+                }])->where(request('filter'), '=', request('value'))->orderBy(request('order'), 'asc')->get();
+                foreach($tools as $key => $tool){
+                    if($tool->contract_tools_count > 0)
+                        $tool->load('toolTypes', 'contractTools');
+                    else
+                        unset($tools[$key]);
+                }
                 return $tools;
             }
             else {
-                $tools = Tool::orderBy(request('order'), 'asc')->get();
-                $tools->load('toolTypes', 'contractTools');
+                $tools = Tool::withCount(['contractTools' => function ($query) {
+                    $query->where('status', '=', 1);
+                }])->orderBy(request('order'), 'asc')->get();
+                foreach($tools as $key => $tool){
+                    if($tool->contract_tools_count > 0)
+                        $tool->load('toolTypes', 'contractTools');
+                    else
+                        unset($tools[$key]);
+                }
                 return $tools;
             }
         }
         if(request('filter')){
-            $tools = Tool::where(request('filter'), '=', request('value'))->get();
-            $tools->load('toolTypes', 'contractTools');
+            $tools = Tool::withCount(['contractTools' => function ($query) {
+                $query->where('status', '=', 1);
+            }])->where(request('filter'), '=', request('value'))->get();
+            foreach($tools as $key => $tool){
+                if($tool->contract_tools_count > 0)
+                    $tool->load('toolTypes', 'contractTools');
+                else
+                    unset($tools[$key]);
+            }
             return $tools;
         }
-        $tools = Tool::withCount(['toolTypes', 'contractTools' => function ($query) {
-                    $query->where('status', '=', 1);
-                }])->get();
+        $tools = Tool::withCount(['contractTools' => function ($query) {
+            $query->where('status', '=', 1);
+        }])->get();
         foreach($tools as $key => $tool){
             if($tool->contract_tools_count > 0)
                 $tool->load('toolTypes', 'contractTools');

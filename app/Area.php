@@ -21,6 +21,16 @@ class Area extends Model
     protected $fillable = ['name', 'responsible'];
 
     /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'created_at', 'updated_at'
+    ];
+
+
+    /**
      * Area has many Tools.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

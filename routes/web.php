@@ -4,6 +4,7 @@ use App\Area;
 use App\Employee;
 use App\Tool;
 use App\ToolType;
+use App\ContractTool;
 
 use Illuminate\Support\Facades\DB;
 
@@ -56,3 +57,8 @@ Route::get('users', function(){
 		return redirect('login');
 	}
 })->name('users');
+
+//Contracts
+Route::get('contracts/all', 'ContractsController@getAll')->name('contract/all');
+Route::get('contracts/byTool', 'ContractsController@getByTool')->name('contract/byTool');
+Route::get('contracts/byArea', 'ContractsController@getByArea')->name('contract/byArea');

@@ -42110,12 +42110,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -42429,28 +42423,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }, [_c('span', {
-    staticClass: "glyphicon glyphicon-remove"
-  })]), _vm._v(" "), _c('h4', {
+    staticClass: "glyph-md"
+  }, [_vm._v("×")])]), _vm._v(" "), _c('h4', {
     staticClass: "modal-title",
     attrs: {
       "id": "myModalLabel"
     }
   }, [_vm._v("Registrar Herramienta")])]), _vm._v(" "), _c('div', {
     staticClass: "modal-body"
-  }, [_c('form', {
-    attrs: {
-      "method": "POST"
-    }
   }, [_c('div', {
     staticClass: "form-group"
   }, [_c('label', {
-    staticClass: "cols-sm-2 control-label",
+    staticClass: "control-label",
     attrs: {
       "for": "tool_name"
     }
-  }, [_vm._v("Nombre de la herramienta")]), _vm._v(" "), _c('div', {
-    staticClass: "cols-sm-10"
-  }, [_c('div', {
+  }, [_vm._v("Nombre")]), _vm._v(" "), _c('div', [_c('div', {
     staticClass: "input-group"
   }, [_vm._m(1), _vm._v(" "), _c('input', {
     directives: [{
@@ -42475,18 +42463,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.newTool.name = $event.target.value
       }
     }
-  }), _vm._v(" "), (_vm.formErrors['name']) ? _c('span', {
+  })]), _vm._v(" "), (_vm.formErrors['name']) ? _c('span', {
     staticClass: "error text-danger"
-  }, [_vm._v(_vm._s(_vm.formErrors['name']))]) : _vm._e()])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.formErrors['name']))]) : _vm._e()])]), _vm._v(" "), _c('div', {
     staticClass: "form-group"
   }, [_c('label', {
-    staticClass: "cols-sm-2 control-label",
+    staticClass: "control-label",
     attrs: {
       "for": "description"
     }
-  }, [_vm._v("Descripción")]), _vm._v(" "), _c('div', {
-    staticClass: "cols-sm-10"
-  }, [_c('div', {
+  }, [_vm._v("Descripción")]), _vm._v(" "), _c('div', [_c('div', {
     staticClass: "input-group"
   }, [_vm._m(2), _vm._v(" "), _c('input', {
     directives: [{
@@ -42511,18 +42497,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.newTool.description = $event.target.value
       }
     }
-  }), _vm._v(" "), (_vm.formErrors['description']) ? _c('span', {
+  })]), _vm._v(" "), (_vm.formErrors['description']) ? _c('span', {
     staticClass: "error text-danger"
-  }, [_vm._v(_vm._s(_vm.formErrors['description']))]) : _vm._e()])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.formErrors['description']))]) : _vm._e()])]), _vm._v(" "), _c('div', {
     staticClass: "form-group"
   }, [_c('label', {
-    staticClass: "cols-sm-2 control-label",
+    staticClass: "control-label",
     attrs: {
       "for": "toolType"
     }
-  }, [_vm._v("Tipo de Herramienta")]), _vm._v(" "), _c('div', {
-    staticClass: "cols-sm-10"
-  }, [_c('div', {
+  }, [_vm._v("Tipo")]), _vm._v(" "), _c('div', [_c('div', {
     staticClass: "input-group"
   }, [_vm._m(3), _vm._v(" "), _c('select', {
     directives: [{
@@ -42558,12 +42542,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "value": toolType.id
       }
     }, [_vm._v(_vm._s(toolType.name))])
-  })], 2), _vm._v(" "), (_vm.formErrors['toolType_id']) ? _c('span', {
+  })], 2)]), _vm._v(" "), (_vm.formErrors['toolType_id']) ? _c('span', {
     staticClass: "error text-danger"
-  }, [_vm._v(_vm._s(_vm.formErrors['toolType_id']))]) : _vm._e()])])]), _vm._v(" "), _c('div', {
-    staticClass: "form-group "
+  }, [_vm._v(_vm._s(_vm.formErrors['toolType_id']))]) : _vm._e()])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
   }, [_c('button', {
-    staticClass: "btn btn-primary btn-lg btn-block",
+    staticClass: "btn btn-primary",
     attrs: {
       "type": "button",
       "id": "button"
@@ -42571,7 +42555,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.registerTool
     }
-  }, [_vm._v("Registrar")])])])])])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Registrar")])])])])])]), _vm._v(" "), _c('div', {
     staticClass: "modal fade",
     attrs: {
       "id": "edit-tool",
@@ -42600,8 +42584,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }, [_c('span', {
-    staticClass: "glyphicon glyphicon-remove"
-  })]), _vm._v(" "), _c('h4', {
+    staticClass: "glyph-md"
+  }, [_vm._v("×")])]), _vm._v(" "), _c('h4', {
     staticClass: "modal-title",
     attrs: {
       "id": "myModalLabel"
@@ -42615,13 +42599,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "form-group"
   }, [_c('label', {
-    staticClass: "cols-sm-2 control-label",
+    staticClass: "control-label",
     attrs: {
       "for": "tool_name"
     }
-  }, [_vm._v("Nombre de la herramienta")]), _vm._v(" "), _c('div', {
-    staticClass: "cols-sm-10"
-  }, [_c('div', {
+  }, [_vm._v("Nombre")]), _vm._v(" "), _c('div', [_c('div', {
     staticClass: "input-group"
   }, [_vm._m(4), _vm._v(" "), _c('input', {
     directives: [{
@@ -42646,18 +42628,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.updatedTool.name = $event.target.value
       }
     }
-  }), _vm._v(" "), (_vm.formErrorsUpdate['name']) ? _c('span', {
+  })]), _vm._v(" "), (_vm.formErrorsUpdate['name']) ? _c('span', {
     staticClass: "error text-danger"
-  }, [_vm._v(_vm._s(_vm.formErrorsUpdate['name']))]) : _vm._e()])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.formErrorsUpdate['name']))]) : _vm._e()])]), _vm._v(" "), _c('div', {
     staticClass: "form-group"
   }, [_c('label', {
-    staticClass: "cols-sm-2 control-label",
+    staticClass: "control-label",
     attrs: {
       "for": "description"
     }
-  }, [_vm._v("Descripción")]), _vm._v(" "), _c('div', {
-    staticClass: "cols-sm-10"
-  }, [_c('div', {
+  }, [_vm._v("Descripción")]), _vm._v(" "), _c('div', [_c('div', {
     staticClass: "input-group"
   }, [_vm._m(5), _vm._v(" "), _c('input', {
     directives: [{
@@ -42682,18 +42662,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.updatedTool.description = $event.target.value
       }
     }
-  }), _vm._v(" "), (_vm.formErrorsUpdate['description']) ? _c('span', {
+  })]), _vm._v(" "), (_vm.formErrorsUpdate['description']) ? _c('span', {
     staticClass: "error text-danger"
-  }, [_vm._v(_vm._s(_vm.formErrorsUpdate['description']))]) : _vm._e()])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.formErrorsUpdate['description']))]) : _vm._e()])]), _vm._v(" "), _c('div', {
     staticClass: "form-group"
   }, [_c('label', {
-    staticClass: "cols-sm-2 control-label",
+    staticClass: "control-label",
     attrs: {
       "for": "type"
     }
-  }, [_vm._v("Tipo")]), _vm._v(" "), _c('div', {
-    staticClass: "cols-sm-10"
-  }, [_c('div', {
+  }, [_vm._v("Tipo")]), _vm._v(" "), _c('div', [_c('div', {
     staticClass: "input-group"
   }, [_vm._m(6), _vm._v(" "), _c('select', {
     directives: [{
@@ -42730,12 +42708,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "value": toolType.id
       }
     }, [_vm._v(_vm._s(toolType.name))])
-  })], 2), _vm._v(" "), (_vm.formErrorsUpdate['toolType_id']) ? _c('span', {
+  })], 2)]), _vm._v(" "), (_vm.formErrorsUpdate['toolType_id']) ? _c('span', {
     staticClass: "error text-danger"
-  }, [_vm._v(_vm._s(_vm.formErrorsUpdate['toolType_id']))]) : _vm._e()])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.formErrorsUpdate['toolType_id']))]) : _vm._e()])]), _vm._v(" "), _c('div', {
     staticClass: "form-group "
   }, [_c('button', {
-    staticClass: "btn btn-primary btn-lg btn-block",
+    staticClass: "btn btn-primary",
     attrs: {
       "type": "button",
       "id": "button"
@@ -42774,8 +42752,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }, [_c('span', {
-    staticClass: "glyphicon glyphicon-remove"
-  })]), _vm._v(" "), _c('h4', {
+    staticClass: "glyph-md"
+  }, [_vm._v("×")])]), _vm._v(" "), _c('h4', {
     staticClass: "modal-title",
     attrs: {
       "id": "myModalLabel"
@@ -42784,9 +42762,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "modal-body"
   }, [_c('p', [_vm._v(_vm._s(_vm.showedTool.description))]), _vm._v(" "), _c('p', [_vm._v("Tipo: "), _c('b', [_vm._v(_vm._s(_vm.showedTool.tool_types.name))])]), _vm._v(" "), _vm._l((_vm.showedTool.contract_tools), function(contract_tools) {
     return _c('p', [_vm._v("\n                                Fecha de Contratación: "), _c('b', [_vm._v(_vm._s(contract_tools.contract_date))]), _vm._v("\n                                Costo por licencia: "), _c('b', [_vm._v(_vm._s(contract_tools.license_cost))])])
-  })], 2), _vm._v(" "), _c('div', {
-    staticClass: "modal-footer"
-  })])])])])])
+  })], 2)])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "pull-right"
@@ -42802,7 +42778,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('span', {
     staticClass: "input-group-addon"
   }, [_c('i', {
-    staticClass: "glyphicon glyphicon-wrench",
+    staticClass: "glyphicon glyphicon-flag",
     attrs: {
       "aria-hidden": "true"
     }
@@ -42811,7 +42787,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('span', {
     staticClass: "input-group-addon"
   }, [_c('i', {
-    staticClass: "glyphicon glyphicon-pencil",
+    staticClass: "glyphicon glyphicon-flag",
     attrs: {
       "aria-hidden": "true"
     }

@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Employee extends Model
+class Frecuency extends Model
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'employees';
+    protected $table = 'frecuencies';
 
     /**
      * Fields that can be mass assigned.
@@ -29,15 +29,14 @@ class Employee extends Model
         'created_at', 'updated_at'
     ];
 
-
     /**
-     * Responsible has many Tools.
+     * Frecuency has many ContractTools.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function tools()
+    public function contractTools()
     {
-        // hasMany(RelatedModel, foreignKeyOnRelatedModel = responsible_id, localKey = id)
-        return $this->hasMany(Tool::class);
+    	// hasMany(RelatedModel, foreignKeyOnRelatedModel = frecuency_id, localKey = id)
+    	return $this->hasMany(ContractTool::class);
     }
 }
