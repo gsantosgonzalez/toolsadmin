@@ -19,50 +19,28 @@ class Tool extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'description', 'type_id', 'area_id', 'responsible_id'];
+    protected $fillable = ['name', 'description', 'toolType_id'];
 
     /**
-     * Tool belongs to Area.
+     * Tool belongs to ToolType.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function area()
+    public function toolTypes()
     {
-        // belongsTo(RelatedModel, foreignKey = area_id, keyOnRelatedModel = id)
-        return $this->belongsTo(Area::class);
+        // belongsTo(RelatedModel, foreignKey = toolType_id, keyOnRelatedModel = id)
+        return $this->belongsTo(ToolType::class, 'toolType_id', 'id');
     }
 
     /**
-     * Tool belongs to Type.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function type()
-    {
-        // belongsTo(RelatedModel, foreignKey = type_id, keyOnRelatedModel = id)
-        return $this->belongsTo(Type::class);
-    }
-
-    /**
-     * Tool belongs to Responsible.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function responsible()
-    {
-        // belongsTo(RelatedModel, foreignKey = responsible_id, keyOnRelatedModel = id)
-        return $this->belongsTo(Responsible::class);
-    }
-
-    /**
-     * Tool has many ToolContracts.
+     * Tool has many ContractTools.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function toolContracts()
+    public function contractTools()
     {
         // hasMany(RelatedModel, foreignKeyOnRelatedModel = tool_id, localKey = id)
-        return $this->hasMany(ToolContract::class)->where('status', '=', 1);
+        return $this->hasMany(ContractTool::class)->where('status', '=', 1);
     }
 
 }

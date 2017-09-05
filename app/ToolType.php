@@ -4,21 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Type extends Model
+class ToolType extends Model
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'types';
-
-    /**
-     * Fields that can be mass assigned.
-     *
-     * @var array
-     */
-    protected $fillable = ['type_name'];
+    protected $table = 'tool_types';
 
     /**
      * Type has many Tools.

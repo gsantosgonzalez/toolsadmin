@@ -17,14 +17,10 @@ class CreateToolsTable extends Migration
             $table->increments('id');
             $table->string('name')->unique();
             $table->string('description');
-            $table->integer('type_id')->unsigned();
-            $table->integer('area_id')->unsigned();
-            $table->integer('responsible_id')->unsigned();
+            $table->integer('toolType_id')->unsigned();
             $table->timestamps();
 
-            $table->foreign('type_id')->references('id')->on('types');
-            $table->foreign('area_id')->references('id')->on('areas');
-            $table->foreign('responsible_id')->references('id')->on('responsibles');
+            $table->foreign('toolType_id')->references('id')->on('tool_types')->onDelete('cascade');
         });
     }
 

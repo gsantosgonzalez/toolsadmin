@@ -18,7 +18,7 @@ class Area extends Model
      *
      * @var array
      */
-    protected $fillable = ['area_name'];
+    protected $fillable = ['name', 'responsible'];
 
     /**
      * Area has many Tools.

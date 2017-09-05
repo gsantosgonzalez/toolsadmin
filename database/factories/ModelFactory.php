@@ -19,6 +19,16 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
+        'typeUser_id' => 2,
         'remember_token' => str_random(10),
+    ];
+});
+
+$factory->define(App\Tool::class, function (Faker\Generator $faker) {
+	
+    return [
+        'name' => $faker->unique()->sentence($nbWords = 3, $variableNbWords = true),
+        'description' => $faker->sentence($nbWords = 6),
+        'toolType_id' => $faker->numberBetween($min = 1, $max = 7)
     ];
 });

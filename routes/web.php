@@ -1,9 +1,9 @@
 <?php
 
 use App\Area;
-use App\Responsible;
+use App\Employee;
 use App\Tool;
-use App\Type;
+use App\ToolType;
 
 use Illuminate\Support\Facades\DB;
 
@@ -27,8 +27,8 @@ Route::get('dashboard', 'DashboardController@index')->name('dashboard');
 Route::get('dashboard/tops', 'DashboardController@getTops')->name('getTops');
 
 //Types
-Route::get('/types', function() {
-	return Type::all();
+Route::get('/tooltypes', function() {
+	return ToolType::all();
 });
 
 //Areas
@@ -37,11 +37,22 @@ Route::get('/areas', function() {
 });
 
 //Responsibles
-Route::get('/responsibles', function() {
-    return Responsible::all();
+Route::get('/employees', function() {
+    return Employee::all();
 });
 
 //Frecuencies
 Route::get('/frecuencies', function() {
-	return DB::table('frecuency')->get();
+	return DB::table('frecuencies')->get();
 });
+
+//Users
+Route::get('users', function(){
+	if (Auth::user() && Auth::user()->typeUsers_id == 1){
+		$typeUsers = DB::table('type_users')->get();
+        return view('users/index')->with(['typeUsers' => $typeUsers]);
+	}
+	else {
+		return redirect('login');
+	}
+})->name('users');

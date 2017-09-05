@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateResponsiblesTable extends Migration
+class CreateFrecuenciesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateResponsiblesTable extends Migration
      */
     public function up()
     {
-        Schema::create('responsibles', function (Blueprint $table) {
+        Schema::create('frecuencies', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('responsible_name')->unique();
+            $table->string('frecuency');
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ class CreateResponsiblesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('responsibles');
+        Schema::dropIfExists('frecuencies');
     }
 }

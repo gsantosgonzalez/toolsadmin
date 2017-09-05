@@ -4,21 +4,21 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Responsible extends Model
+class Employee extends Model
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'responsibles';
+    protected $table = 'employees';
 
     /**
      * Fields that can be mass assigned.
      *
      * @var array
      */
-    protected $fillable = ['responsible_name'];
+    protected $fillable = ['name'];
 
     /**
      * Responsible has many Tools.

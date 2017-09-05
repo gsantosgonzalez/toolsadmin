@@ -42116,74 +42116,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             tools: [],
-            types: [],
+            toolTypes: [],
             areas: [],
-            responsibles: [],
+            employees: [],
             frecuencies: [],
             show_name: this.$root.app_name,
             order: '',
@@ -42192,16 +42132,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             newTool: {
                 'name': '',
                 'description': '',
-                'area_id': '',
-                'type_id': '',
-                'responsible_id': ''
+                'toolType_id': ''
             },
             updatedTool: {
                 'name': '',
                 'description': '',
-                'area_id': '',
-                'type_id': '',
-                'responsible_id': '',
+                'toolType_id': '',
                 'id': ''
             },
             formErrors: {},
@@ -42209,13 +42145,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             showedTool: {
                 'name': '',
                 'description': '',
-                'area_id': '',
-                'type_id': '',
-                'responsible_id': '',
-                'area': [],
-                'type': [],
-                'responsible': [],
-                'toolContracts': []
+                'toolType_id': '',
+                'tool_types': [],
+                'contractTools': []
             }
         };
     },
@@ -42226,9 +42158,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mounted: function mounted() {
         var _this = this;
 
-        axios.get('/types').then(function (response) {
+        axios.get('/tooltypes').then(function (response) {
             $.each(response.data, function (index, value) {
-                _this.types.push(value);
+                _this.toolTypes.push(value);
             });
         });
         axios.get('/areas').then(function (response) {
@@ -42236,9 +42168,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.areas.push(value);
             });
         });
-        axios.get('/responsibles').then(function (response) {
+        axios.get('/employees').then(function (response) {
             $.each(response.data, function (index, value) {
-                _this.responsibles.push(value);
+                _this.employees.push(value);
             });
         });
         axios.get('/frecuencies').then(function (response) {
@@ -42322,7 +42254,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.post('/tools', input).then(function (response) {
                 if (response.data.status == 1) {
                     toastr.success('Se almacenó correctamente.', '¡Éxito!', { timeOut: 5000 });
-                    self.newTool = { 'name': '', 'description': '', 'area_id': '', 'type_id': '', 'responsible_id': '' };
+                    self.newTool = { 'name': '', 'description': '', 'toolType_id': '' };
                     self.getTools();
                     $('#create-tool').modal('hide');
                 } else {
@@ -42338,9 +42270,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.updatedTool.id = tool.id;
             this.updatedTool.name = tool.name;
             this.updatedTool.description = tool.description;
-            this.updatedTool.area_id = tool.area_id;
-            this.updatedTool.type_id = tool.type_id;
-            this.updatedTool.responsible_id = tool.responsible_id;
+            this.updatedTool.toolType_id = tool.toolType_id;
         },
         updateTool: function updateTool(id) {
             var self = this;
@@ -42351,7 +42281,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).then(function (response) {
                 if (response.data.status == 1) {
                     toastr.success('Se actualizó correctamente.', '¡Éxito!', { timeOut: 5000 });
-                    self.updatedTool = { 'id': '', 'name': '', 'description': '', 'area_id': '', 'type_id': '', 'responsible_id': '' };
+                    self.updatedTool = { 'id': '', 'name': '', 'description': '', 'toolType_id': '' };
                     self.getTools();
                     $('#edit-tool').modal('hide');
                 } else {
@@ -42369,8 +42299,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         cierraModal: function cierraModal(modal) {
             $('#' + modal).modal('hide');
-            this.newTool = { 'name': '', 'description': '', 'area_id': '', 'type_id': '', 'responsible_id': '' };
-            this.updatedTool = { 'id': '', 'name': '', 'description': '', 'area_id': '', 'type_id': '', 'responsible_id': '' };
+            this.newTool = { 'name': '', 'description': '', 'toolType_id': '' };
+            this.updatedTool = { 'id': '', 'name': '', 'description': '', 'toolType_id': '' };
             this.formErrors = {};
             this.formErrorsUpdate = {};
         }
@@ -42417,16 +42347,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     on: {
       "click": function($event) {
-        _vm.getOrderedTools('area_id')
-      }
-    }
-  }, [_vm._v("Area")])]), _vm._v(" "), _c('th', [_c('a', {
-    attrs: {
-      "href": "#"
-    },
-    on: {
-      "click": function($event) {
-        _vm.getOrderedTools('type_id')
+        _vm.getOrderedTools('toolType_id')
       }
     }
   }, [_vm._v("Tipo")])]), _vm._v(" "), _c('th', [_vm._v("Acciones")])])]), _vm._v(" "), _c('tbody', _vm._l((_vm.tools), function(tool) {
@@ -42449,20 +42370,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       on: {
         "click": function($event) {
-          _vm.getFilteredTools('area_id', tool.area_id)
+          _vm.getFilteredTools('toolType_id', tool.toolType_id)
         }
       }
-    }, [_vm._v(_vm._s(tool.area.area_name))])]), _vm._v(" "), _c('td', [_c('a', {
-      attrs: {
-        "href": "#",
-        "role": "button"
-      },
-      on: {
-        "click": function($event) {
-          _vm.getFilteredTools('type_id', tool.type_id)
-        }
-      }
-    }, [_vm._v(_vm._s(tool.type.type_name))])]), _vm._v(" "), _c('td', [_c('button', {
+    }, [_vm._v(_vm._s(tool.tool_types.name))])]), _vm._v(" "), _c('td', [_c('button', {
       staticClass: "btn btn-warning btn-xs",
       attrs: {
         "value": tool.id,
@@ -42607,9 +42518,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('label', {
     staticClass: "cols-sm-2 control-label",
     attrs: {
-      "for": "area"
+      "for": "toolType"
     }
-  }, [_vm._v("Área")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Tipo de Herramienta")]), _vm._v(" "), _c('div', {
     staticClass: "cols-sm-10"
   }, [_c('div', {
     staticClass: "input-group"
@@ -42617,55 +42528,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.newTool.area_id),
-      expression: "newTool.area_id"
-    }],
-    staticClass: "form-control",
-    attrs: {
-      "id": "areaSelect"
-    },
-    on: {
-      "change": function($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
-          return o.selected
-        }).map(function(o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val
-        });
-        _vm.newTool.area_id = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-      }
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": "",
-      "disabled": "",
-      "selected": ""
-    }
-  }, [_vm._v("Select your option")]), _vm._v(" "), _vm._l((_vm.areas), function(area) {
-    return _c('option', {
-      domProps: {
-        "value": area.id
-      }
-    }, [_vm._v(_vm._s(area.area_name))])
-  })], 2), _vm._v(" "), (_vm.formErrors['area_id']) ? _c('span', {
-    staticClass: "error text-danger"
-  }, [_vm._v(_vm._s(_vm.formErrors['area_id']))]) : _vm._e()])])]), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    staticClass: "cols-sm-2 control-label",
-    attrs: {
-      "for": "type"
-    }
-  }, [_vm._v("Tipo")]), _vm._v(" "), _c('div', {
-    staticClass: "cols-sm-10"
-  }, [_c('div', {
-    staticClass: "input-group"
-  }, [_vm._m(4), _vm._v(" "), _c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.newTool.type_id),
-      expression: "newTool.type_id"
+      value: (_vm.newTool.toolType_id),
+      expression: "newTool.toolType_id"
     }],
     staticClass: "form-control",
     attrs: {
@@ -42679,7 +42543,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           var val = "_value" in o ? o._value : o.value;
           return val
         });
-        _vm.newTool.type_id = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+        _vm.newTool.toolType_id = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
       }
     }
   }, [_c('option', {
@@ -42688,62 +42552,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "disabled": "",
       "selected": ""
     }
-  }, [_vm._v("Select your option")]), _vm._v(" "), _vm._l((_vm.types), function(type) {
+  }, [_vm._v("Select your option")]), _vm._v(" "), _vm._l((_vm.toolTypes), function(toolType) {
     return _c('option', {
       domProps: {
-        "value": type.id
+        "value": toolType.id
       }
-    }, [_vm._v(_vm._s(type.type_name))])
-  })], 2), _vm._v(" "), (_vm.formErrors['type_id']) ? _c('span', {
+    }, [_vm._v(_vm._s(toolType.name))])
+  })], 2), _vm._v(" "), (_vm.formErrors['toolType_id']) ? _c('span', {
     staticClass: "error text-danger"
-  }, [_vm._v(_vm._s(_vm.formErrors['type_id']))]) : _vm._e()])])]), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    staticClass: "cols-sm-2 control-label",
-    attrs: {
-      "for": "responsible"
-    }
-  }, [_vm._v("Responsable")]), _vm._v(" "), _c('div', {
-    staticClass: "cols-sm-10"
-  }, [_c('div', {
-    staticClass: "input-group"
-  }, [_vm._m(5), _vm._v(" "), _c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.newTool.responsible_id),
-      expression: "newTool.responsible_id"
-    }],
-    staticClass: "form-control",
-    attrs: {
-      "id": "responsibleSelect"
-    },
-    on: {
-      "change": function($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
-          return o.selected
-        }).map(function(o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val
-        });
-        _vm.newTool.responsible_id = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-      }
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": "",
-      "disabled": "",
-      "selected": ""
-    }
-  }, [_vm._v("Select your option")]), _vm._v(" "), _vm._l((_vm.responsibles), function(responsible) {
-    return _c('option', {
-      domProps: {
-        "value": responsible.id
-      }
-    }, [_vm._v(_vm._s(responsible.responsible_name))])
-  })], 2), _vm._v(" "), (_vm.formErrors['responsible_id']) ? _c('span', {
-    staticClass: "error text-danger"
-  }, [_vm._v(_vm._s(_vm.formErrors['responsible_id']))]) : _vm._e()])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.formErrors['toolType_id']))]) : _vm._e()])])]), _vm._v(" "), _c('div', {
     staticClass: "form-group "
   }, [_c('button', {
     staticClass: "btn btn-primary btn-lg btn-block",
@@ -42806,7 +42623,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "cols-sm-10"
   }, [_c('div', {
     staticClass: "input-group"
-  }, [_vm._m(6), _vm._v(" "), _c('input', {
+  }, [_vm._m(4), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -42842,7 +42659,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "cols-sm-10"
   }, [_c('div', {
     staticClass: "input-group"
-  }, [_vm._m(7), _vm._v(" "), _c('input', {
+  }, [_vm._m(5), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -42872,66 +42689,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('label', {
     staticClass: "cols-sm-2 control-label",
     attrs: {
-      "for": "area"
-    }
-  }, [_vm._v("Área")]), _vm._v(" "), _c('div', {
-    staticClass: "cols-sm-10"
-  }, [_c('div', {
-    staticClass: "input-group"
-  }, [_vm._m(8), _vm._v(" "), _c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.updatedTool.area_id),
-      expression: "updatedTool.area_id"
-    }],
-    staticClass: "form-control",
-    attrs: {
-      "id": "areaSelect"
-    },
-    on: {
-      "change": function($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
-          return o.selected
-        }).map(function(o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val
-        });
-        _vm.updatedTool.area_id = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-      }
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": "",
-      "disabled": "",
-      "selected": ""
-    }
-  }, [_vm._v("Select your option")]), _vm._v(" "), _vm._l((_vm.areas), function(area) {
-    return _c('option', {
-      class: [_vm.updatedTool.area_id == area.id ? 'selected' : ''],
-      domProps: {
-        "value": area.id
-      }
-    }, [_vm._v(_vm._s(area.area_name))])
-  })], 2), _vm._v(" "), (_vm.formErrorsUpdate['area_id']) ? _c('span', {
-    staticClass: "error text-danger"
-  }, [_vm._v(_vm._s(_vm.formErrorsUpdate['area_id']))]) : _vm._e()])])]), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    staticClass: "cols-sm-2 control-label",
-    attrs: {
       "for": "type"
     }
   }, [_vm._v("Tipo")]), _vm._v(" "), _c('div', {
     staticClass: "cols-sm-10"
   }, [_c('div', {
     staticClass: "input-group"
-  }, [_vm._m(9), _vm._v(" "), _c('select', {
+  }, [_vm._m(6), _vm._v(" "), _c('select', {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.updatedTool.type_id),
-      expression: "updatedTool.type_id"
+      value: (_vm.updatedTool.toolType_id),
+      expression: "updatedTool.toolType_id"
     }],
     staticClass: "form-control",
     attrs: {
@@ -42945,7 +42714,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           var val = "_value" in o ? o._value : o.value;
           return val
         });
-        _vm.updatedTool.type_id = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+        _vm.updatedTool.toolType_id = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
       }
     }
   }, [_c('option', {
@@ -42954,64 +42723,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "disabled": "",
       "selected": ""
     }
-  }, [_vm._v("Select your option")]), _vm._v(" "), _vm._l((_vm.types), function(type) {
+  }, [_vm._v("Select your option")]), _vm._v(" "), _vm._l((_vm.toolTypes), function(toolType) {
     return _c('option', {
-      class: [_vm.updatedTool.type_id == type.id ? 'selected' : ''],
+      class: [_vm.updatedTool.toolType_id == toolType.id ? 'selected' : ''],
       domProps: {
-        "value": type.id
+        "value": toolType.id
       }
-    }, [_vm._v(_vm._s(type.type_name))])
-  })], 2), _vm._v(" "), (_vm.formErrorsUpdate['type_id']) ? _c('span', {
+    }, [_vm._v(_vm._s(toolType.name))])
+  })], 2), _vm._v(" "), (_vm.formErrorsUpdate['toolType_id']) ? _c('span', {
     staticClass: "error text-danger"
-  }, [_vm._v(_vm._s(_vm.formErrorsUpdate['type_id']))]) : _vm._e()])])]), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    staticClass: "cols-sm-2 control-label",
-    attrs: {
-      "for": "responsible"
-    }
-  }, [_vm._v("Responsable")]), _vm._v(" "), _c('div', {
-    staticClass: "cols-sm-10"
-  }, [_c('div', {
-    staticClass: "input-group"
-  }, [_vm._m(10), _vm._v(" "), _c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.updatedTool.responsible_id),
-      expression: "updatedTool.responsible_id"
-    }],
-    staticClass: "form-control",
-    attrs: {
-      "id": "responsibleSelect"
-    },
-    on: {
-      "change": function($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
-          return o.selected
-        }).map(function(o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val
-        });
-        _vm.updatedTool.responsible_id = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-      }
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": "",
-      "disabled": "",
-      "selected": ""
-    }
-  }, [_vm._v("Select your option")]), _vm._v(" "), _vm._l((_vm.responsibles), function(responsible) {
-    return _c('option', {
-      class: [_vm.updatedTool.responsible_id == responsible.id ? 'selected' : ''],
-      domProps: {
-        "value": responsible.id
-      }
-    }, [_vm._v(_vm._s(responsible.responsible_name))])
-  })], 2), _vm._v(" "), (_vm.formErrorsUpdate['responsible_id']) ? _c('span', {
-    staticClass: "error text-danger"
-  }, [_vm._v(_vm._s(_vm.formErrorsUpdate['responsible_id']))]) : _vm._e()])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.formErrorsUpdate['toolType_id']))]) : _vm._e()])])]), _vm._v(" "), _c('div', {
     staticClass: "form-group "
   }, [_c('button', {
     staticClass: "btn btn-primary btn-lg btn-block",
@@ -43024,7 +42745,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.updateTool(_vm.updatedTool.id)
       }
     }
-  }, [_vm._v("Registrar")])])])])])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Actualizar")])])])])])])]), _vm._v(" "), _c('div', {
     staticClass: "modal fade",
     attrs: {
       "id": "show-tool",
@@ -43061,8 +42782,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v(_vm._s(_vm.showedTool.name))])]), _vm._v(" "), _c('div', {
     staticClass: "modal-body"
-  }, [_c('p', [_vm._v(_vm._s(_vm.showedTool.description))]), _vm._v(" "), _c('p', [_vm._v("Área: "), _c('b', [_vm._v(_vm._s(_vm.showedTool.area.area_name))])]), _vm._v(" "), _c('p', [_vm._v("Tipo: "), _c('b', [_vm._v(_vm._s(_vm.showedTool.type.type_name))])]), _vm._v(" "), _c('p', [_vm._v("Responsable: "), _c('b', [_vm._v(_vm._s(_vm.showedTool.responsible.responsible_name))])]), _vm._v(" "), _vm._l((_vm.showedTool.tool_contracts), function(tool_contracts) {
-    return _c('p', [_vm._v("\n                                Fecha de Contratación: "), _c('b', [_vm._v(_vm._s(tool_contracts.contract_date))]), _vm._v("\n                                Costo: "), _c('b', [_vm._v(_vm._s(tool_contracts.cost))])])
+  }, [_c('p', [_vm._v(_vm._s(_vm.showedTool.description))]), _vm._v(" "), _c('p', [_vm._v("Tipo: "), _c('b', [_vm._v(_vm._s(_vm.showedTool.tool_types.name))])]), _vm._v(" "), _vm._l((_vm.showedTool.contract_tools), function(contract_tools) {
+    return _c('p', [_vm._v("\n                                Fecha de Contratación: "), _c('b', [_vm._v(_vm._s(contract_tools.contract_date))]), _vm._v("\n                                Costo por licencia: "), _c('b', [_vm._v(_vm._s(contract_tools.license_cost))])])
   })], 2), _vm._v(" "), _c('div', {
     staticClass: "modal-footer"
   })])])])])])
@@ -43099,25 +42820,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('span', {
     staticClass: "input-group-addon"
   }, [_c('i', {
-    staticClass: "glyphicon glyphicon-home",
-    attrs: {
-      "aria-hidden": "true"
-    }
-  })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', {
-    staticClass: "input-group-addon"
-  }, [_c('i', {
     staticClass: "glyphicon glyphicon-flag",
-    attrs: {
-      "aria-hidden": "true"
-    }
-  })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', {
-    staticClass: "input-group-addon"
-  }, [_c('i', {
-    staticClass: "glyphicon glyphicon-user",
     attrs: {
       "aria-hidden": "true"
     }
@@ -43144,25 +42847,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('span', {
     staticClass: "input-group-addon"
   }, [_c('i', {
-    staticClass: "glyphicon glyphicon-home",
-    attrs: {
-      "aria-hidden": "true"
-    }
-  })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', {
-    staticClass: "input-group-addon"
-  }, [_c('i', {
     staticClass: "glyphicon glyphicon-flag",
-    attrs: {
-      "aria-hidden": "true"
-    }
-  })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', {
-    staticClass: "input-group-addon"
-  }, [_c('i', {
-    staticClass: "glyphicon glyphicon-user",
     attrs: {
       "aria-hidden": "true"
     }
@@ -43392,65 +43077,65 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-     data: function data() {
-          return {
-               total: '',
-               topPrice: '',
-               lowPrice: '',
-               newer: '',
-               older: '',
-               filtro: '',
-               type: '',
-               types: [],
-               area: '',
-               areas: [],
-               tools: []
-          };
-     },
+					data: function data() {
+										return {
+															total: '',
+															topPrice: '',
+															lowPrice: '',
+															newer: '',
+															older: '',
+															filtro: '',
+															toolType: '',
+															toolTypes: [],
+															area: '',
+															areas: [],
+															tools: []
+										};
+					},
 
-     ready: function ready() {},
-     mounted: function mounted() {
-          this.getTops();
-     },
-     methods: {
-          getTops: function getTops() {
-               var _this = this;
+					ready: function ready() {},
+					mounted: function mounted() {
+										this.getTops();
+					},
+					methods: {
+										getTops: function getTops() {
+															var _this = this;
 
-               this.total = '';
-               this.topPrice = '';
-               this.lowPrice = '';
-               this.newer = '';
-               this.older = '';
-               axios.get('dashboard/tops').then(function (response) {
-                    _this.total = response.data.total;
-                    _this.topPrice = response.data.topPrice[0];
-                    _this.lowPrice = response.data.lowPrice[0];
-                    _this.newer = response.data.newer[0];
-                    _this.older = response.data.older[0];
-               });
-          }
-     },
-     watch: {
-          filtro: function filtro(val) {
-               var _this2 = this;
+															this.total = '';
+															this.topPrice = '';
+															this.lowPrice = '';
+															this.newer = '';
+															this.older = '';
+															axios.get('dashboard/tops').then(function (response) {
+																				_this.total = response.data.total;
+																				_this.topPrice = response.data.topPrice[0];
+																				_this.lowPrice = response.data.lowPrice[0];
+																				_this.newer = response.data.newer[0];
+																				_this.older = response.data.older[0];
+															});
+										}
+					},
+					watch: {
+										filtro: function filtro(val) {
+															var _this2 = this;
 
-               if (val == 'type_id') {
-                    this.areas = [];
-                    axios.get('/types').then(function (response) {
-                         $.each(response.data, function (index, value) {
-                              _this2.types.push(value);
-                         });
-                    });
-               } else {
-                    this.types = [];
-                    axios.get('/areas').then(function (response) {
-                         $.each(response.data, function (index, value) {
-                              _this2.areas.push(value);
-                         });
-                    });
-               }
-          }
-     }
+															if (val == 'toolType_id') {
+																				this.areas = [];
+																				axios.get('/tooltypes').then(function (response) {
+																									$.each(response.data, function (index, value) {
+																														_this2.toolTypes.push(value);
+																									});
+																				});
+															} else {
+																				this.toolTypes = [];
+																				axios.get('/areas').then(function (response) {
+																									$.each(response.data, function (index, value) {
+																														_this2.areas.push(value);
+																									});
+																				});
+															}
+										}
+					}
 });
 
 /***/ }),
@@ -43490,7 +43175,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "medium-font"
   }, [_vm._v(_vm._s(_vm.topPrice.name))]), _vm._v(" "), _c('div', {
     staticClass: "huge"
-  }, [_vm._v(_vm._s(_vm.topPrice.cost))])])])]), _vm._v(" "), _vm._m(3)])]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.topPrice.license_cost))])])])]), _vm._v(" "), _vm._m(3)])]), _vm._v(" "), _c('div', {
     staticClass: "col-lg-4 col-md-6"
   }, [_c('div', {
     staticClass: "panel panel-success"
@@ -43504,7 +43189,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "medium-font"
   }, [_vm._v(_vm._s(_vm.lowPrice.name))]), _vm._v(" "), _c('div', {
     staticClass: "huge"
-  }, [_vm._v(_vm._s(_vm.lowPrice.cost))])])])]), _vm._v(" "), _vm._m(5)])]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.lowPrice.license_cost))])])])]), _vm._v(" "), _vm._m(5)])]), _vm._v(" "), _c('div', {
     staticClass: "col-lg-4 col-md-6"
   }, [_c('div', {
     staticClass: "panel panel-warning"
@@ -43581,14 +43266,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Area")]), _vm._v(" "), _c('option', {
     attrs: {
-      "value": "type_id"
+      "value": "toolType_id"
     }
-  }, [_vm._v("Type")])])])])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Tool Type")])])])])])]), _vm._v(" "), _c('div', {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: (_vm.filtro == 'type_id'),
-      expression: "filtro == 'type_id'"
+      value: (_vm.filtro == 'toolType_id'),
+      expression: "filtro == 'toolType_id'"
     }],
     staticClass: "col-lg-3 col-md-6"
   }, [_c('div', {
@@ -43606,8 +43291,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.type),
-      expression: "type"
+      value: (_vm.toolType),
+      expression: "toolType"
     }],
     staticClass: "form-control",
     attrs: {
@@ -43621,7 +43306,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           var val = "_value" in o ? o._value : o.value;
           return val
         });
-        _vm.type = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+        _vm.toolType = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
       }
     }
   }, [_c('option', {
@@ -43630,12 +43315,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "disabled": "",
       "selected": ""
     }
-  }, [_vm._v("Selecciona")]), _vm._v(" "), _vm._l((_vm.types), function(type) {
+  }, [_vm._v("Selecciona")]), _vm._v(" "), _vm._l((_vm.toolTypes), function(toolType) {
     return _c('option', {
       domProps: {
-        "value": type.id
+        "value": toolType.id
       }
-    }, [_vm._v(_vm._s(type.type_name))])
+    }, [_vm._v(_vm._s(toolType.name))])
   })], 2)])])])]), _vm._v(" "), _c('div', {
     directives: [{
       name: "show",
@@ -43688,7 +43373,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       domProps: {
         "value": area.id
       }
-    }, [_vm._v(_vm._s(area.area_name))])
+    }, [_vm._v(_vm._s(area.name))])
   })], 2)])])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {

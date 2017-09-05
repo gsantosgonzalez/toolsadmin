@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateToolContractsTable extends Migration
+class CreateLicensesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,13 @@ class CreateToolContractsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tool_contracts', function (Blueprint $table) {
+        Schema::create('licenses', function (Blueprint $table) {
+            $table->increments('id');
+            $table->mediumText('license_key');
             $table->integer('tool_id')->unsigned();
-            $table->date('contract_date');
-            $table->decimal('cost', 10, 2);
-            $table->string('frecuency');
-            $table->boolean('status');
+            $table->integer('contract_id')->unsigned();
+            $table->tinyInteger('status');
             $table->timestamps();
-
-            $table->foreign('tool_id')->references('id')->on('tools');
         });
     }
 
@@ -32,6 +30,6 @@ class CreateToolContractsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tool_contracts');
+        Schema::dropIfExists('licenses');
     }
 }
