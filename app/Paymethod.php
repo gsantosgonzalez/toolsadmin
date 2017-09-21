@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Card extends Model
+class Paymethod extends Model
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'cards';
+    protected $table = 'cat_paymethods';
 
     /**
      * The attributes that should be hidden for arrays.
@@ -27,16 +27,17 @@ class Card extends Model
      *
      * @var array
      */
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'details'];
 
     /**
-     * Currency has many ContractTools.
+     * Paymethod has many Licenses.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function contractTools()
+    public function licenses()
     {
-    	// hasMany(RelatedModel, foreignKeyOnRelatedModel = currency_id, localKey = id)
-    	return $this->hasMany(ContractTool::class);
+        // hasMany(RelatedModel, foreignKeyOnRelatedModel = paymethod_id, localKey = id)
+        return $this->hasMany(License::class);
     }
+
 }

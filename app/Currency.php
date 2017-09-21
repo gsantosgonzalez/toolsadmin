@@ -11,7 +11,7 @@ class Currency extends Model
      *
      * @var string
      */
-    protected $table = 'currencies';
+    protected $table = 'cat_currencies';
 
     /**
      * The attributes that should be hidden for arrays.
@@ -27,17 +27,17 @@ class Currency extends Model
      *
      * @var array
      */
-    protected $fillable = ['name'];
+    protected $fillable = ['currency'];
 
     /**
-     * Currency has many ContractTools.
+     * Currency has many Licenses.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function contractTools()
+    public function licenses()
     {
-    	// hasMany(RelatedModel, foreignKeyOnRelatedModel = currency_id, localKey = id)
-    	return $this->hasMany(ContractTool::class);
+        // hasMany(RelatedModel, foreignKeyOnRelatedModel = currency_id, localKey = id)
+        return $this->hasMany(License::class);
     }
 
 }

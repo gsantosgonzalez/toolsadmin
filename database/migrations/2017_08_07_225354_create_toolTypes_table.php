@@ -13,9 +13,10 @@ class CreateToolTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('tool_types', function (Blueprint $table) {
+        Schema::create('cat_tool_types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->unique();
+            $table->tinyInteger('status')->default(1);
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ class CreateToolTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tool_types');
+        Schema::dropIfExists('cat_tool_types');
     }
 }

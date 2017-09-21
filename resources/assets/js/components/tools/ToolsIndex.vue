@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-lg-12 margin-tb">
                     <div class="pull-left">
-                        <h2>{{ show_name }}</h2>
+                        <h2>Herramientas</h2>
                     </div>
                     <div class="pull-right">
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#create-tool">

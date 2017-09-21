@@ -15,11 +15,15 @@ class CreateAssignLicensesTable extends Migration
     {
         Schema::create('assign_licenses', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('computer_id')->unsigned();
             $table->integer('license_id')->unsigned();
+            $table->integer('area_id')->unsigned();
+            $table->integer('computer_id')->unsigned();
+            $table->date('activation-date');
+            $table->date('deactivation-date')->default(NULL);
             $table->timestamps();
 
-            $table->foreign('computer_id')->references('id')->on('computers')->onDelete('cascade');
+            $table->foreign('area_id')->references('id')->on('cat_areas')->onDelete('cascade');
+            $table->foreign('computer_id')->references('id')->on('cat_computers')->onDelete('cascade');
             $table->foreign('license_id')->references('id')->on('licenses')->onDelete('cascade');
         });
     }

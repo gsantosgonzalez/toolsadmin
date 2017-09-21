@@ -13,9 +13,10 @@ class CreateFrecuenciesTable extends Migration
      */
     public function up()
     {
-        Schema::create('frecuencies', function (Blueprint $table) {
+        Schema::create('cat_frecuencies', function (Blueprint $table) {
             $table->increments('id');
             $table->string('frecuency');
+            $table->tinyInteger('status')->default(1);
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ class CreateFrecuenciesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('frecuencies');
+        Schema::dropIfExists('cat_frecuencies');
     }
 }

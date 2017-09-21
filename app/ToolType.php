@@ -11,7 +11,7 @@ class ToolType extends Model
      *
      * @var string
      */
-    protected $table = 'tool_types';
+    protected $table = 'cat_tool_types';
 
     /**
      * The attributes that should be hidden for arrays.
@@ -30,6 +30,6 @@ class ToolType extends Model
     public function tools()
     {
         // hasMany(RelatedModel, foreignKeyOnRelatedModel = type_id, localKey = id)
-        return $this->hasMany(Tool::class);
+        return $this->hasMany(Tool::class, 'toolType_id', 'id');
     }
 }

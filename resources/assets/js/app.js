@@ -17,11 +17,11 @@ window.Vue = require('vue');
  
 Vue.component('tools', require('./components/tools/ToolsIndex.vue'));
 Vue.component('dashboard', require('./components/dashboard/Dashboard.vue'));
+Vue.component('users', require('./components/users/UsersIndex.vue'));
 
 const app = new Vue({
     el: '#app',
     data: {
-        app_name: 'Listado de herramientas'
     },
     methods:{
 

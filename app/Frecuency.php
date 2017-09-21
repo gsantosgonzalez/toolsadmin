@@ -11,14 +11,14 @@ class Frecuency extends Model
      *
      * @var string
      */
-    protected $table = 'frecuencies';
+    protected $table = 'cat_frecuencies';
 
     /**
      * Fields that can be mass assigned.
      *
      * @var array
      */
-    protected $fillable = ['name'];
+    protected $fillable = ['frecuency'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -30,13 +30,13 @@ class Frecuency extends Model
     ];
 
     /**
-     * Frecuency has many ContractTools.
+     * Frecuency has many Licenses.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function contractTools()
+    public function licenses()
     {
-    	// hasMany(RelatedModel, foreignKeyOnRelatedModel = frecuency_id, localKey = id)
-    	return $this->hasMany(ContractTool::class);
+        // hasMany(RelatedModel, foreignKeyOnRelatedModel = frecuency_id, localKey = id)
+        return $this->hasMany(License::class);
     }
 }

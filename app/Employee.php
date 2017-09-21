@@ -11,7 +11,7 @@ class Employee extends Model
      *
      * @var string
      */
-    protected $table = 'employees';
+    protected $table = 'cat_employees';
 
     /**
      * Fields that can be mass assigned.
@@ -29,15 +29,15 @@ class Employee extends Model
         'created_at', 'updated_at'
     ];
 
-
     /**
-     * Responsible has many Tools.
+     * Employee has one Area.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function tools()
+    public function area()
     {
-        // hasMany(RelatedModel, foreignKeyOnRelatedModel = responsible_id, localKey = id)
-        return $this->hasMany(Tool::class);
+        // hasOne(RelatedModel, foreignKeyOnRelatedModel = employee_id, localKey = id)
+        return $this->hasOne(Area::class, 'responsible', 'id');
     }
+
 }

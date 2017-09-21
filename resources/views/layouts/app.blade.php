@@ -47,7 +47,7 @@
                         @if (Auth::guest())
                             <li><a href="{{ route('login') }}">Login</a></li>
                         @else
-                            @if( Auth::user()->typeUsers_id == 1)
+                            @if( Auth::user()->typeUser_id == 1)
                                 <li><a href="{{ route('users') }}">Usuarios</a></li>
                             @endif
                             <li><a href="{{ route('dashboard') }}">Dashboard</a></li>

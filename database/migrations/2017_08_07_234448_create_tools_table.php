@@ -20,7 +20,7 @@ class CreateToolsTable extends Migration
             $table->integer('toolType_id')->unsigned();
             $table->timestamps();
 
-            $table->foreign('toolType_id')->references('id')->on('tool_types')->onDelete('cascade');
+            $table->foreign('toolType_id')->references('id')->on('cat_tool_types')->onDelete('cascade');
         });
     }
 

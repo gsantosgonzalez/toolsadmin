@@ -43,14 +43,14 @@ class Tool extends Model
     }
 
     /**
-     * Tool has many ContractTools.
+     * Tool has many Licenses.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function contractTools()
+    public function licenses()
     {
         // hasMany(RelatedModel, foreignKeyOnRelatedModel = tool_id, localKey = id)
-        return $this->hasMany(ContractTool::class)->where('status', '=', 1);
+        return $this->hasMany(License::class);
     }
 
 }

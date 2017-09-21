@@ -11,7 +11,7 @@ class Area extends Model
      *
      * @var string
      */
-    protected $table = 'areas';
+    protected $table = 'cat_areas';
 
     /**
      * Fields that can be mass assigned.
@@ -29,15 +29,26 @@ class Area extends Model
         'created_at', 'updated_at'
     ];
 
-
     /**
-     * Area has many Tools.
+     * Area has many AssignLicensse.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function tools()
+    public function assignLicenses()
     {
         // hasMany(RelatedModel, foreignKeyOnRelatedModel = area_id, localKey = id)
-        return $this->hasMany(Tool::class);
+        return $this->hasMany(AssignLicense::class);
     }
+
+    /**
+     * Area belongs to Responsible.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function responsible()
+    {
+        // belongsTo(RelatedModel, foreignKey = responsible_id, keyOnRelatedModel = id)
+        return $this->belongsTo(Employee::class, 'responsible', 'id');
+    }
+
 }

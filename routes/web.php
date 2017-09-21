@@ -28,28 +28,50 @@ Route::get('dashboard', 'DashboardController@index')->name('dashboard');
 Route::get('dashboard/tops', 'DashboardController@getTops')->name('getTops');
 
 //Types
-Route::get('/tooltypes', function() {
+Route::get('tooltypes', function() {
 	return ToolType::all();
 });
+Route::post('tooltypes', 'CatalogsController@addToolType');
 
 //Areas
-Route::get('/areas', function() {
+Route::get('areas', function() {
     return Area::all();
 });
+Route::post('areas', 'CatalogsController@addArea')->middleware('web');
 
 //Responsibles
-Route::get('/employees', function() {
+Route::get('employees', function() {
     return Employee::all();
 });
+Route::post('employees', 'CatalogsController@addEmployee');
 
 //Frecuencies
-Route::get('/frecuencies', function() {
-	return DB::table('frecuencies')->get();
+Route::get('frecuencies', function() {
+	return DB::table('cat_frecuencies')->get();
 });
+Route::post('frecuencies', 'CatalogsController@addFrecuency');
+
+//Currencies
+Route::get('currencies', function() {
+	return DB::table('cat_currencies')->get();
+});
+Route::post('currencies', 'CatalogsController@addCurrency');
+
+//Paymethods
+Route::get('paymethods', function() {
+	return DB::table('cat_paymethods')->get();
+});
+Route::post('paymethods', 'CatalogsController@addPaymethod');
+
+//Computers
+Route::get('computers', function() {
+	return DB::table('cat_computers')->get();
+});
+Route::post('computers', 'CatalogsController@addComputer');
 
 //Users
 Route::get('users', function(){
-	if (Auth::user() && Auth::user()->typeUsers_id == 1){
+	if (Auth::user() && Auth::user()->typeUser_id == 1){
 		$typeUsers = DB::table('type_users')->get();
         return view('users/index')->with(['typeUsers' => $typeUsers]);
 	}
@@ -58,7 +80,3 @@ Route::get('users', function(){
 	}
 })->name('users');
 
-//Contracts
-Route::get('contracts/all', 'ContractsController@getAll')->name('contract/all');
-Route::get('contracts/byTool', 'ContractsController@getByTool')->name('contract/byTool');
-Route::get('contracts/byArea', 'ContractsController@getByArea')->name('contract/byArea');
