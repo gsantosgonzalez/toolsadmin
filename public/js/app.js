@@ -43055,10 +43055,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					data: function data() {
 										return {
 															total: '',
-															topPrice: '',
-															lowPrice: '',
-															newer: '',
-															older: '',
+															topPrice: [],
+															lowPrice: [],
+															newer: [],
+															older: [],
 															filtro: '',
 															toolType: '',
 															toolTypes: [],
@@ -43132,9 +43132,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "row"
   }, [_vm._m(0), _vm._v(" "), _c('div', {
     staticClass: "col-xs-9 text-right"
-  }, [_c('div', [_vm._v("Total")]), _vm._v(" "), _c('div', {
-    staticClass: "medium-font"
-  }, [_vm._v("Herramientas")]), _vm._v(" "), _c('div', {
+  }, [_c('div', [_vm._v("Total")]), _vm._v(" "), _c('div', [_vm._v("Herramientas")]), _vm._v(" "), _c('div', {
     staticClass: "huge"
   }, [_vm._v(_vm._s(_vm.total))])])])]), _vm._v(" "), _vm._m(1)])]), _vm._v(" "), _c('div', {
     staticClass: "col-lg-4 col-md-6"
@@ -43561,10 +43559,45 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            users: []
+        };
+    },
     mounted: function mounted() {
-        console.log('Component mounted.');
+        var _this = this;
+
+        axios.post('getUsers').then(function (response) {
+            $.each(response.data, function (index, val) {
+                _this.users.push(val);
+            });
+            console.log(_this.users);
+        });
     }
 });
 
@@ -43573,13 +43606,73 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "container"
   }, [_c('div', {
     staticClass: "row main"
-  }, [_c('div', {
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.users.length > 0),
+      expression: "users.length > 0"
+    }],
+    staticClass: "main-login main-center table-responsive"
+  }, [_c('table', {
+    staticClass: "table table-striped"
+  }, [_vm._m(1), _vm._v(" "), _c('tbody', _vm._l((_vm.users), function(user) {
+    return _c('tr', [_c('td', [_c('a', {
+      attrs: {
+        "href": "#",
+        "role": "button",
+        "data-toggle": "modal",
+        "data-target": "#show-user"
+      },
+      on: {
+        "click": function($event) {
+          _vm.showUser(user)
+        }
+      }
+    }, [_vm._v(_vm._s(user.name))])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(user.email))]), _vm._v(" "), _c('td', [_c('a', {
+      attrs: {
+        "href": "#",
+        "role": "button"
+      },
+      on: {
+        "click": function($event) {
+          _vm.getFilteredUsers('typeUser_id', user.typeUser_id)
+        }
+      }
+    }, [_vm._v(_vm._s(user.type_user.name.toUpperCase()))])]), _vm._v(" "), _c('td', [_c('button', {
+      staticClass: "btn btn-warning btn-xs",
+      attrs: {
+        "value": user.id,
+        "data-toggle": "modal",
+        "data-target": "#edit-user"
+      },
+      on: {
+        "click": function($event) {
+          _vm.editUser(user)
+        }
+      }
+    }, [_c('span', {
+      staticClass: "glyphicon glyphicon-pencil"
+    })]), _vm._v("  \n                                "), _c('button', {
+      staticClass: "btn btn-danger btn-xs",
+      attrs: {
+        "value": user.id
+      },
+      on: {
+        "click": function($event) {
+          _vm.deleteUser(user)
+        }
+      }
+    }, [_c('span', {
+      staticClass: "glyphicon glyphicon-trash"
+    })])])])
+  }))])])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-lg-12 margin-tb"
@@ -43587,14 +43680,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "pull-left"
   }, [_c('h2', [_vm._v("Usuarios")])]), _vm._v(" "), _c('div', {
     staticClass: "pull-right"
-  }, [_c('button', {
+  }, [_c('a', {
     staticClass: "btn btn-primary",
     attrs: {
-      "type": "button",
-      "data-toggle": "modal",
-      "data-target": "#register-user"
+      "role": "button",
+      "href": "/register"
     }
-  }, [_vm._v("\n                            Registrar\n                        ")])])])])])])
+  }, [_vm._v("\n                            Registrar\n                        ")])])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('thead', [_c('tr', [_c('th', [_vm._v("Nombre")]), _vm._v(" "), _c('th', [_vm._v("E-mail")]), _vm._v(" "), _c('th', [_vm._v("Tipo")]), _vm._v(" "), _c('th', [_vm._v("Acciones")])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
