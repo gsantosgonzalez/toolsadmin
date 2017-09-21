@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAreasTable extends Migration
+class CreatePaymethodsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateAreasTable extends Migration
      */
     public function up()
     {
-        Schema::create('cat_areas', function (Blueprint $table) {
+        Schema::create('cat_paymethods', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->unique();
-            $table->integer('responsible')->unsigned();
+            $table->string('name');
+            $table->string('details')->defualt(NULL);
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
-
-            $table->foreign('responsible')->references('id')->on('cat_employees')->onDelete('cascade');
         });
     }
 
@@ -31,6 +29,6 @@ class CreateAreasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cat_areas');
+        Schema::dropIfExists('cat_paymethods');
     }
 }

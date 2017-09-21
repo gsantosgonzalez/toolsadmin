@@ -11,23 +11,44 @@ class Area extends Model
      *
      * @var string
      */
-    protected $table = 'areas';
+    protected $table = 'cat_areas';
 
     /**
      * Fields that can be mass assigned.
      *
      * @var array
      */
-    protected $fillable = ['area_name'];
+    protected $fillable = ['name', 'responsible'];
 
     /**
-     * Area has many Tools.
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'created_at', 'updated_at'
+    ];
+
+    /**
+     * Area has many AssignLicensse.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function tools()
+    public function assignLicenses()
     {
         // hasMany(RelatedModel, foreignKeyOnRelatedModel = area_id, localKey = id)
-        return $this->hasMany(Tool::class);
+        return $this->hasMany(AssignLicense::class);
     }
+
+    /**
+     * Area belongs to Responsible.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function responsible()
+    {
+        // belongsTo(RelatedModel, foreignKey = responsible_id, keyOnRelatedModel = id)
+        return $this->belongsTo(Employee::class, 'responsible', 'id');
+    }
+
 }

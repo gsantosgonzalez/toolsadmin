@@ -9,9 +9,8 @@ use Validator;
 
 use App\Area;
 use App\Tool;
-use App\Type;
-use App\Responsible;
-use App\Http\Requests\ToolRequest;
+use App\ToolType;
+use App\Employee;
 
 class ToolsController extends Controller
 {
@@ -25,31 +24,31 @@ class ToolsController extends Controller
         if(request('order')){
             if(request('filter')){
                 $tools = Tool::where(request('filter'), '=', request('value'))->orderBy(request('order'), 'asc')->get();
-                $tools->load('area', 'type', 'responsible', 'toolContracts');
+                $tools->load('toolType', 'licenses');
                 return $tools;
             }
             else {
                 $tools = Tool::orderBy(request('order'), 'asc')->get();
-                $tools->load('area', 'type', 'responsible', 'toolContracts');
+                $tools->load('toolType', 'licenses');
                 return $tools;
             }
         }
         if(request('filter')){
             $tools = Tool::where(request('filter'), '=', request('value'))->get();
-            $tools->load('area', 'type', 'responsible', 'toolContracts');
+            $tools->load('toolType', 'licenses');
             return $tools;
         }
         $tools = Tool::all();
-        $tools->load('area', 'type', 'responsible', 'toolContracts');
+        $tools->load('toolType', 'licenses');
         return $tools;
     }
 
     public function main()
     {
-    	$types = Type::all();
+    	$toolTypes = ToolType::all();
     	$areas = Area::all();
-        $responsibles = Responsible::all();
-    	return view('tools/index')->with(['types' => $types, 'areas' => $areas]);
+        $responsibles = Employee::all();
+    	return view('tools/index')->with(['toolTypes' => $toolTypes, 'areas' => $areas]);
     }
 
     public function store(Request $request)
@@ -57,9 +56,7 @@ class ToolsController extends Controller
         $validation = Validator::make($request->all(), [
             'name' => 'required|unique:tools',
             'description' => 'required',
-            'type_id' => 'required|exists:types,id',
-            'area_id' => 'required|exists:areas,id',
-            'responsible_id' => 'required|exists:responsibles,id'
+            'toolType_id' => 'required|exists:tool_types,id',
         ]);
 
         if($validation->fails()){
@@ -79,9 +76,7 @@ class ToolsController extends Controller
                 Rule::unique('tools')->ignore($request->id)
             ],
             'description' => 'required',
-            'type_id' => 'required|exists:types,id',
-            'area_id' => 'required|exists:areas,id',
-            'responsible_id' => 'required|exists:responsibles,id'
+            'toolType_id' => 'required|exists:tool_types,id'
         ]);
 
         if($validator->fails()){
@@ -95,7 +90,9 @@ class ToolsController extends Controller
 
     public function destroy($id)
     {
-        Tool::find($id)->delete();
+        $tool = Tool::find($id);
+        $tool->status = 0;
+        $tool->update();
         return response()->json(['status' => 1]);
     }
 

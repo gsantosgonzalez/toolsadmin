@@ -46,8 +46,10 @@
                         <!-- Authentication Links -->
                         @if (Auth::guest())
                             <li><a href="{{ route('login') }}">Login</a></li>
-                            <li><a href="{{ route('register') }}">Register</a></li>
                         @else
+                            @if( Auth::user()->typeUser_id == 1)
+                                <li><a href="{{ route('users') }}">Usuarios</a></li>
+                            @endif
                             <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
                             <li><a href="{{ route('tools') }}">Herramientas</a></li>
                             <li class="dropdown">
@@ -83,8 +85,8 @@
     <script src="{{ asset('js/app.js') }}"></script>    
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script>
-        toastr.optionsOverride = 'positionclass = "toast-bottom-full-width"';
-        toastr.options.positionClass = 'toast-bottom-full-width';
+        toastr.optionsOverride = 'positionclass = "toast-bottom-left"';
+        toastr.options.positionClass = 'toast-bottom-left';
     </script>
 </body>
 </html>

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateToolContractsTable extends Migration
+class CreateFrecuenciesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,11 @@ class CreateToolContractsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tool_contracts', function (Blueprint $table) {
-            $table->integer('tool_id')->unsigned();
-            $table->date('contract_date');
-            $table->decimal('cost', 10, 2);
+        Schema::create('cat_frecuencies', function (Blueprint $table) {
+            $table->increments('id');
             $table->string('frecuency');
-            $table->boolean('status');
+            $table->tinyInteger('status')->default(1);
             $table->timestamps();
-
-            $table->foreign('tool_id')->references('id')->on('tools');
         });
     }
 
@@ -32,6 +28,6 @@ class CreateToolContractsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tool_contracts');
+        Schema::dropIfExists('cat_frecuencies');
     }
 }

@@ -4,21 +4,23 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Type extends Model
+class ToolType extends Model
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'types';
+    protected $table = 'cat_tool_types';
 
     /**
-     * Fields that can be mass assigned.
+     * The attributes that should be hidden for arrays.
      *
      * @var array
      */
-    protected $fillable = ['type_name'];
+    protected $hidden = [
+        'created_at', 'updated_at'
+    ];
 
     /**
      * Type has many Tools.
@@ -28,6 +30,6 @@ class Type extends Model
     public function tools()
     {
         // hasMany(RelatedModel, foreignKeyOnRelatedModel = type_id, localKey = id)
-        return $this->hasMany(Tool::class);
+        return $this->hasMany(Tool::class, 'toolType_id', 'id');
     }
 }
