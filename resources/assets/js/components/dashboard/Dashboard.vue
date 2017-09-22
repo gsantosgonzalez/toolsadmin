@@ -34,7 +34,7 @@
 	                          <div class="col-xs-9 text-right">
 	                              <div>Mayor Precio</div>
 	                              <div class="medium-font">{{ topPrice.name }}</div>
-	                              <div class="huge">{{ topPrice.license_cost }}</div>
+	                              <div class="huge">{{ topPrice.cost }}</div>
 	                          </div>
 	                      </div>
 	                  </div>
@@ -57,7 +57,7 @@
 	                          <div class="col-xs-9 text-right">
 	                              <div>Menor Precio</div>
 	                              <div class="medium-font">{{ lowPrice.name }}</div>
-	                              <div class="huge">{{ lowPrice.license_cost }}</div>
+	                              <div class="huge">{{ lowPrice.cost }}</div>
 	                          </div>
 	                      </div>
 	                  </div>
@@ -80,7 +80,7 @@
 	                          <div class="col-xs-9 text-right">
 	                              <div>Más Antigua</div>
 	                              <div class="medium-font">{{ older.name }}</div>
-	                              <div class="huge">{{ older.contract_date }}</div>
+	                              <div class="huge">{{ older.date }}</div>
 	                          </div>
 	                      </div>
 	                  </div>
@@ -103,7 +103,7 @@
 	                          <div class="col-xs-9 text-right">
 	                              <div>Más Reciente</div>
 	                              <div class="medium-font">{{ newer.name }}</div>
-	                              <div class="huge">{{ newer.contract_date }}</div>
+	                              <div class="huge">{{ newer.date }}</div>
 	                          </div>
 	                      </div>
 	                  </div>
@@ -136,11 +136,11 @@
 			</div> <!-- col-lg-3 col-md-6 -->
 			<div class="col-lg-3 col-md-6" v-show="filtro == 'toolType_id'">
 				<div class="form-group">
-	                  <label for="type" class="cols-sm-2 control-label">Filtrar por:</label>
+	                  <label for="type" class="cols-sm-2 control-label">Tipo de herramienta:</label>
 	                  <div class="cols-sm-10">
 	                      <div class="input-group">
 	                          <span class="input-group-addon"><i class="glyphicon glyphicon-flag" aria-hidden="true"></i></span>
-	                          <select class="form-control" id="typeSelect" v-model="toolType">
+	                          <select class="form-control" id="typeSelect" v-model="value">
 	                              <option value="" disabled selected>Selecciona</option>
 	                              <option v-for="toolType in toolTypes" v-bind:value="toolType.id">{{ toolType.name }}</option>
 	                          </select>
@@ -150,11 +150,11 @@
 			</div> <!-- col-lg-3 col-md-6 -->
 			<div class="col-lg-3 col-md-6" v-show="filtro == 'area_id'">
 				<div class="form-group">
-	                  <label for="type" class="cols-sm-2 control-label">Filtrar por:</label>
+	                  <label for="type" class="cols-sm-2 control-label">Area:</label>
 	                  <div class="cols-sm-10">
 	                      <div class="input-group">
 	                          <span class="input-group-addon"><i class="glyphicon glyphicon-home" aria-hidden="true"></i></span>
-	                          <select class="form-control" id="typeSelect" v-model="area">
+	                          <select class="form-control" id="typeSelect" v-model="value">
 	                              <option value="" disabled selected>Selecciona</option>
 	                              <option v-for="area in areas" v-bind:value="area.id">{{ area.name }}</option>
 	                          </select>
@@ -176,6 +176,7 @@ export default {
 			newer: [],
 			older: [],
 			filtro: '',
+			value: '',
 			toolType: '',
 			toolTypes: [],
 			area: '',
@@ -187,16 +188,21 @@ export default {
 
     },
     mounted: function() {
-  		this.getTops()
+  		this.getTops(this.filtro, this.value)
     },
     methods: {
-      	getTops(){
+      	getTops(filter, value){
 	            this.total = '';
 	            this.topPrice = '';
 	            this.lowPrice = '';
 	            this.newer = '';
 	            this.older = '';
-	            axios.get('dashboard/tops').then(response => {
+	            axios.get('dashboard/tops', {
+	            	params : {
+                        filter: filter,
+                        value: value
+                    }
+	            }).then(response => {
 	                this.total = response.data.total;
 	                this.topPrice = response.data.topPrice[0];
 	                this.lowPrice = response.data.lowPrice[0];
@@ -223,6 +229,9 @@ export default {
 	            	})
 	            });
       		}
+      	},
+      	value: function(val) {
+      		this.getTops(this.filtro, val)
       	}
     }
 }

@@ -43060,6 +43060,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 															newer: [],
 															older: [],
 															filtro: '',
+															value: '',
 															toolType: '',
 															toolTypes: [],
 															area: '',
@@ -43070,10 +43071,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 					ready: function ready() {},
 					mounted: function mounted() {
-										this.getTops();
+										this.getTops(this.filtro, this.value);
 					},
 					methods: {
-										getTops: function getTops() {
+										getTops: function getTops(filter, value) {
 															var _this = this;
 
 															this.total = '';
@@ -43081,7 +43082,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 															this.lowPrice = '';
 															this.newer = '';
 															this.older = '';
-															axios.get('dashboard/tops').then(function (response) {
+															axios.get('dashboard/tops', {
+																				params: {
+																									filter: filter,
+																									value: value
+																				}
+															}).then(function (response) {
 																				_this.total = response.data.total;
 																				_this.topPrice = response.data.topPrice[0];
 																				_this.lowPrice = response.data.lowPrice[0];
@@ -43109,6 +43115,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 																									});
 																				});
 															}
+										},
+										value: function value(val) {
+															this.getTops(this.filtro, val);
 										}
 					}
 });
@@ -43148,7 +43157,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "medium-font"
   }, [_vm._v(_vm._s(_vm.topPrice.name))]), _vm._v(" "), _c('div', {
     staticClass: "huge"
-  }, [_vm._v(_vm._s(_vm.topPrice.license_cost))])])])]), _vm._v(" "), _vm._m(3)])]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.topPrice.cost))])])])]), _vm._v(" "), _vm._m(3)])]), _vm._v(" "), _c('div', {
     staticClass: "col-lg-4 col-md-6"
   }, [_c('div', {
     staticClass: "panel panel-success"
@@ -43162,7 +43171,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "medium-font"
   }, [_vm._v(_vm._s(_vm.lowPrice.name))]), _vm._v(" "), _c('div', {
     staticClass: "huge"
-  }, [_vm._v(_vm._s(_vm.lowPrice.license_cost))])])])]), _vm._v(" "), _vm._m(5)])]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.lowPrice.cost))])])])]), _vm._v(" "), _vm._m(5)])]), _vm._v(" "), _c('div', {
     staticClass: "col-lg-4 col-md-6"
   }, [_c('div', {
     staticClass: "panel panel-warning"
@@ -43176,7 +43185,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "medium-font"
   }, [_vm._v(_vm._s(_vm.older.name))]), _vm._v(" "), _c('div', {
     staticClass: "huge"
-  }, [_vm._v(_vm._s(_vm.older.contract_date))])])])]), _vm._v(" "), _vm._m(7)])]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.older.date))])])])]), _vm._v(" "), _vm._m(7)])]), _vm._v(" "), _c('div', {
     staticClass: "col-lg-4 col-md-6"
   }, [_c('div', {
     staticClass: "panel panel-warning"
@@ -43190,7 +43199,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "medium-font"
   }, [_vm._v(_vm._s(_vm.newer.name))]), _vm._v(" "), _c('div', {
     staticClass: "huge"
-  }, [_vm._v(_vm._s(_vm.newer.contract_date))])])])]), _vm._v(" "), _vm._m(9)])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.newer.date))])])])]), _vm._v(" "), _vm._m(9)])])]), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-lg-3 col-md-6"
@@ -43256,7 +43265,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "for": "type"
     }
-  }, [_vm._v("Filtrar por:")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Tipo de herramienta:")]), _vm._v(" "), _c('div', {
     staticClass: "cols-sm-10"
   }, [_c('div', {
     staticClass: "input-group"
@@ -43264,8 +43273,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.toolType),
-      expression: "toolType"
+      value: (_vm.value),
+      expression: "value"
     }],
     staticClass: "form-control",
     attrs: {
@@ -43279,7 +43288,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           var val = "_value" in o ? o._value : o.value;
           return val
         });
-        _vm.toolType = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+        _vm.value = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
       }
     }
   }, [_c('option', {
@@ -43309,7 +43318,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "for": "type"
     }
-  }, [_vm._v("Filtrar por:")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Area:")]), _vm._v(" "), _c('div', {
     staticClass: "cols-sm-10"
   }, [_c('div', {
     staticClass: "input-group"
@@ -43317,8 +43326,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.area),
-      expression: "area"
+      value: (_vm.value),
+      expression: "value"
     }],
     staticClass: "form-control",
     attrs: {
@@ -43332,7 +43341,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           var val = "_value" in o ? o._value : o.value;
           return val
         });
-        _vm.area = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+        _vm.value = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
       }
     }
   }, [_c('option', {

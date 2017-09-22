@@ -14,11 +14,16 @@ class DashboardController extends Controller
     }
 
     public function getTops(){
-    	$total = DB::table('tools')->get()->count();
-    	$topPrice = DB::select("SELECT name, cost FROM licenses a JOIN tools b ON b.id=tool_id WHERE cost = (SELECT max(cost) FROM licenses);");
-    	$lowPrice = DB::select("SELECT name, cost FROM licenses a JOIN tools b ON b.id=tool_id WHERE cost = (SELECT min(cost) FROM licenses WHERE cost > 0);");
-    	$newer = DB::select("SELECT name, 'contract-date' FROM licenses a JOIN tools b ON b.id=tool_id WHERE 'contract-date' = (SELECT max('contract-date') FROM licenses);");
-    	$older = DB::select("SELECT name, 'contract-date' FROM licenses a JOIN tools b ON b.id=tool_id WHERE 'contract-date' = (SELECT min('contract-date') FROM licenses);");
+        $filters = [];
+        if(request('filter')){
+            $filters[] = [request('filter'), '=', request('value')];
+        }
+        //dd($filters);
+    	$total = DB::table('tools')->where($filters)->get()->count();
+    	$topPrice = DB::table('licenses as a')->join('tools as b', 'b.id', '=', 'tool_id')->select('name', DB::raw('max(cost) as cost'))->where($filters)->groupBy('name')->get();
+    	$lowPrice = DB::table('licenses as a')->join('tools as b', 'b.id', '=', 'tool_id')->select('name', DB::raw('min(cost) as cost'))->where($filters)->where('cost', '>', 0)->groupBy('name')->get();
+    	$newer = DB::table('licenses as a')->join('tools as b', 'b.id', '=', 'tool_id')->select('name', DB::raw('max(contract_date) as date'))->where($filters)->groupBy('name')->get();
+    	$older = DB::table('licenses as a')->join('tools as b', 'b.id', '=', 'tool_id')->select('name', DB::raw('min(contract_date) as date'))->where($filters)->groupBy('name')->get();
     	return response()->json([
     		'total' => $total,
     		'topPrice' => $topPrice,
