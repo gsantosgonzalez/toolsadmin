@@ -16,7 +16,7 @@ class CreatePaymethodsTable extends Migration
         Schema::create('cat_paymethods', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('details')->defualt(NULL);
+            $table->string('details')->default(NULL);
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
         });

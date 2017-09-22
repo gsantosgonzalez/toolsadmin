@@ -10,7 +10,7 @@
 							</div>
 							<div class="col-xs-9 text-right">
 								<div>Total</div>
-								<div class="medium-font">Herramientas</div>
+								<div>Herramientas</div>
 								<div class="huge">{{ total }}</div>
 							</div>
 						</div>
@@ -171,10 +171,10 @@ export default {
 	data() {
         return {
 			total: '',
-			topPrice: '',
-			lowPrice: '',
-			newer: '',
-			older: '',
+			topPrice: [],
+			lowPrice: [],
+			newer: [],
+			older: [],
 			filtro: '',
 			toolType: '',
 			toolTypes: [],

@@ -15,14 +15,14 @@ class CreateLicensesTable extends Migration
     {
         Schema::create('licenses', function (Blueprint $table) {
             $table->increments('id');
-            $table->mediumText('license-key');
+            $table->mediumText('license_key');
             $table->integer('tool_id')->unsigned();
             $table->integer('frecuency_id')->unsigned();
             $table->integer('currency_id')->unsigned();
             $table->integer('paymethod_id')->unsigned();
             $table->decimal('cost', 10, 2)->default(0.00);
-            $table->date('contract-date');
-            $table->date('cancel-date')->default(NULL);
+            $table->date('contract_date');
+            $table->date('cancel_date')->default(NULL);
 
             $table->foreign('tool_id')->references('id')->on('tools')->onDelete('cascade');
             $table->foreign('frecuency_id')->references('id')->on('cat_frecuencies')->onDelete('cascade');

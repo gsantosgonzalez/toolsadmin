@@ -79,4 +79,19 @@ Route::get('users', function(){
 		return redirect('login');
 	}
 })->name('users');
+Route::post('getUsers', function() {
+	$users = null;
+    if (Auth::user() && Auth::user()->typeUser_id == 1){
+		$users = App\User::all();
+		$users->load('typeUser');
+	}
+	return $users;
+});
+Route::get('typeUsers', function() {
+	$typeUsers = null;
+    if (Auth::user() && Auth::user()->typeUser_id == 1){
+		$typeUsers = App\TypeUser::all();
+	}
+	return $typeUsers;
+});
 

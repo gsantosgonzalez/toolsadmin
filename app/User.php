@@ -27,4 +27,15 @@ class User extends Authenticatable
         'created_at', 'updated_at', 'password', 'remember_token',
     ];
 
+    /**
+     * User belongs to TypeUser.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function typeUser()
+    {
+        // belongsTo(RelatedModel, foreignKey = typeUser_id, keyOnRelatedModel = id)
+        return $this->belongsTo(TypeUser::class, 'typeUser_id', 'id');
+    }
+
 }

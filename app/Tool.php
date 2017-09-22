@@ -36,7 +36,7 @@ class Tool extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function toolTypes()
+    public function toolType()
     {
         // belongsTo(RelatedModel, foreignKey = toolType_id, keyOnRelatedModel = id)
         return $this->belongsTo(ToolType::class, 'toolType_id', 'id');

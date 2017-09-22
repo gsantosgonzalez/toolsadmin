@@ -15,10 +15,10 @@ class DashboardController extends Controller
 
     public function getTops(){
     	$total = DB::table('tools')->get()->count();
-    	$topPrice = DB::select('SELECT name, license_cost FROM tools a JOIN contract_tools b ON b.id=tool_id WHERE license_cost = (SELECT max(license_cost) FROM contract_tools);');
-    	$lowPrice = DB::select('SELECT name, license_cost FROM tools a JOIN contract_tools b ON b.id=tool_id WHERE license_cost = (SELECT min(license_cost) FROM contract_tools WHERE license_cost > 0);');
-    	$newer = DB::select('SELECT name, contract_date FROM tools a JOIN contract_tools b ON b.id=tool_id WHERE contract_date = (SELECT max(contract_date) FROM contract_tools);');
-    	$older = DB::select('SELECT name, contract_date FROM tools a JOIN contract_tools b ON b.id=tool_id WHERE contract_date = (SELECT min(contract_date) FROM contract_tools);');
+    	$topPrice = DB::select("SELECT name, cost FROM licenses a JOIN tools b ON b.id=tool_id WHERE cost = (SELECT max(cost) FROM licenses);");
+    	$lowPrice = DB::select("SELECT name, cost FROM licenses a JOIN tools b ON b.id=tool_id WHERE cost = (SELECT min(cost) FROM licenses WHERE cost > 0);");
+    	$newer = DB::select("SELECT name, 'contract-date' FROM licenses a JOIN tools b ON b.id=tool_id WHERE 'contract-date' = (SELECT max('contract-date') FROM licenses);");
+    	$older = DB::select("SELECT name, 'contract-date' FROM licenses a JOIN tools b ON b.id=tool_id WHERE 'contract-date' = (SELECT min('contract-date') FROM licenses);");
     	return response()->json([
     		'total' => $total,
     		'topPrice' => $topPrice,
