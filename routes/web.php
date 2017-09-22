@@ -87,4 +87,11 @@ Route::post('getUsers', function() {
 	}
 	return $users;
 });
+Route::get('typeUsers', function() {
+	$typeUsers = null;
+    if (Auth::user() && Auth::user()->typeUser_id == 1){
+		$typeUsers = App\TypeUser::all();
+	}
+	return $typeUsers;
+});
 

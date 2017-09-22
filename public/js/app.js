@@ -42139,8 +42139,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 'name': '',
                 'description': '',
                 'toolType_id': '',
-                'tool_types': [],
-                'contractTools': []
+                'tool_type': [],
+                'licenses': []
             }
         };
     },
@@ -42360,7 +42360,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           _vm.getFilteredTools('toolType_id', tool.toolType_id)
         }
       }
-    }, [_vm._v(_vm._s(tool.tool_types.name))])]), _vm._v(" "), _c('td', [_c('button', {
+    }, [_vm._v(_vm._s(tool.tool_type.name))])]), _vm._v(" "), _c('td', [_c('button', {
       staticClass: "btn btn-warning btn-xs",
       attrs: {
         "value": tool.id,
@@ -42753,8 +42753,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v(_vm._s(_vm.showedTool.name))])]), _vm._v(" "), _c('div', {
     staticClass: "modal-body"
-  }, [_c('p', [_vm._v(_vm._s(_vm.showedTool.description))]), _vm._v(" "), _c('p', [_vm._v("Tipo: "), _c('b', [_vm._v(_vm._s(_vm.showedTool.tool_types.name))])]), _vm._v(" "), _vm._l((_vm.showedTool.contract_tools), function(contract_tools) {
-    return _c('p', [_vm._v("\n                                Fecha de Contratación: "), _c('b', [_vm._v(_vm._s(contract_tools.contract_date))]), _vm._v("\n                                Costo por licencia: "), _c('b', [_vm._v(_vm._s(contract_tools.license_cost))])])
+  }, [_c('p', [_vm._v(_vm._s(_vm.showedTool.description))]), _vm._v(" "), _c('p', [_vm._v("Tipo: "), _c('b', [_vm._v(_vm._s(_vm.showedTool.tool_type.name))])]), _vm._v(" "), _vm._l((_vm.showedTool.licenses), function(license) {
+    return _c('p', [_vm._v("\n                                Fecha de Contratación: "), _c('b', [_vm._v(_vm._s(license.contract_date))]), _c('br'), _vm._v("\n                                Costo por licencia: " + _vm._s(license.cost) + "\n                            ")])
   })], 2)])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
@@ -43582,11 +43582,57 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            users: []
+            users: [],
+            prospect: { 'email': '', 'typeUser_id': '' },
+            formErrors: {},
+            typeUsers: []
         };
     },
     mounted: function mounted() {
@@ -43596,8 +43642,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             $.each(response.data, function (index, val) {
                 _this.users.push(val);
             });
-            console.log(_this.users);
         });
+        axios.get('typeUsers').then(function (response) {
+            $.each(response.data, function (index, val) {
+                _this.typeUsers.push(val);
+            });
+        });
+    },
+
+    methods: {
+        cierraModal: function cierraModal(modal) {
+            $('#' + modal).modal('hide');
+            this.prospect = { 'email': '', 'typeUser_id': '' }, this.formErrors = {};
+        }
     }
 });
 
@@ -43670,7 +43727,123 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('span', {
       staticClass: "glyphicon glyphicon-trash"
     })])])])
-  }))])])])])
+  }))])]), _vm._v(" "), _c('div', {
+    staticClass: "modal fade",
+    attrs: {
+      "id": "create-user",
+      "tabindex": "-1",
+      "role": "dialog",
+      "aria-labelledby": "myModalLabel"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog",
+    attrs: {
+      "role": "document"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content"
+  }, [_c('div', {
+    staticClass: "modal-header"
+  }, [_c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "aria-label": "Close"
+    },
+    on: {
+      "click": function($event) {
+        _vm.cierraModal('create-user')
+      }
+    }
+  }, [_c('span', {
+    staticClass: "glyph-md"
+  }, [_vm._v("×")])]), _vm._v(" "), _c('h4', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "myModalLabel"
+    }
+  }, [_vm._v("Invitar Usuario")])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-body"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    staticClass: "control-label",
+    attrs: {
+      "for": "user_email"
+    }
+  }, [_vm._v("E-mail")]), _vm._v(" "), _c('div', [_c('div', {
+    staticClass: "input-group"
+  }, [_vm._m(2), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.prospect.email),
+      expression: "prospect.email"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "email",
+      "name": "user_email",
+      "id": "user_email",
+      "placeholder": "Correo del usuario"
+    },
+    domProps: {
+      "value": (_vm.prospect.email)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.prospect.email = $event.target.value
+      }
+    }
+  })]), _vm._v(" "), (_vm.formErrors['email']) ? _c('span', {
+    staticClass: "error text-danger"
+  }, [_vm._v(_vm._s(_vm.formErrors['email']))]) : _vm._e()])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    staticClass: "control-label",
+    attrs: {
+      "for": "typeUser"
+    }
+  }, [_vm._v("Tipo")]), _vm._v(" "), _c('div', [_c('div', {
+    staticClass: "input-group"
+  }, [_vm._m(3), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.prospect.typeUser_id),
+      expression: "prospect.typeUser_id"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "id": "typeSelect"
+    },
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.prospect.typeUser_id = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "",
+      "disabled": "",
+      "selected": ""
+    }
+  }, [_vm._v("Select your option")]), _vm._v(" "), _vm._l((_vm.typeUsers), function(typeUser) {
+    return _c('option', {
+      domProps: {
+        "value": typeUser.id
+      }
+    }, [_vm._v(_vm._s(typeUser.name))])
+  })], 2)]), _vm._v(" "), (_vm.formErrors['typeUser.id']) ? _c('span', {
+    staticClass: "error text-danger"
+  }, [_vm._v(_vm._s(_vm.formErrors['typeUser.id']))]) : _vm._e()])]), _vm._v(" "), _vm._m(4)])])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "row"
@@ -43684,11 +43857,40 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "btn btn-primary",
     attrs: {
       "role": "button",
-      "href": "/register"
+      "data-toggle": "modal",
+      "data-target": "#create-user"
     }
   }, [_vm._v("\n                            Registrar\n                        ")])])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('thead', [_c('tr', [_c('th', [_vm._v("Nombre")]), _vm._v(" "), _c('th', [_vm._v("E-mail")]), _vm._v(" "), _c('th', [_vm._v("Tipo")]), _vm._v(" "), _c('th', [_vm._v("Acciones")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
+    staticClass: "input-group-addon"
+  }, [_c('i', {
+    staticClass: "glyphicon glyphicon-user",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
+    staticClass: "input-group-addon"
+  }, [_c('i', {
+    staticClass: "glyphicon glyphicon-list",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "form-group"
+  }, [_c('button', {
+    staticClass: "btn btn-primary",
+    attrs: {
+      "type": "button",
+      "id": "button"
+    }
+  }, [_vm._v("Registrar")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {

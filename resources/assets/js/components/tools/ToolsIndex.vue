@@ -29,7 +29,7 @@
                 		<tr v-for="tool in tools">
                 			<td><a href="#" role="button" @click="showTool(tool)" data-toggle="modal" data-target="#show-tool">{{ tool.name }}</a></td>
                 			<td>{{ tool.description }}</td>
-                            <td><a href="#" role="button" @click="getFilteredTools('toolType_id', tool.toolType_id)">{{ tool.tool_types.name }}</a></td>
+                            <td><a href="#" role="button" @click="getFilteredTools('toolType_id', tool.toolType_id)">{{ tool.tool_type.name }}</a></td>
                             <!-- <td>{{ tool.tool_contracts[0].contract_date }}</td>
                             <td>{{ tool.tool_contracts[0].cost }}</td> -->
                             <td>
@@ -162,10 +162,10 @@
                         </div>
                         <div class="modal-body">
                             <p>{{ showedTool.description }}</p>
-                            <p>Tipo: <b>{{ showedTool.tool_types.name }}</b></p>
-                            <p v-for="contract_tools in showedTool.contract_tools">
-                                Fecha de Contratación: <b>{{ contract_tools.contract_date }}</b>
-                                Costo por licencia: <b>{{ contract_tools.license_cost }}</b>
+                            <p>Tipo: <b>{{ showedTool.tool_type.name }}</b></p>
+                            <p v-for="license in showedTool.licenses">
+                                Fecha de Contratación: <b>{{ license.contract_date }}</b><br>
+                                Costo por licencia: {{ license.cost }}
                             </p>
                         </div>
                     </div>
@@ -207,8 +207,8 @@
                     'name': '',
                     'description': '',
                     'toolType_id': '',
-                    'tool_types': [],
-                    'contractTools': [],
+                    'tool_type': [],
+                    'licenses': [],
                 },
             }
         },
