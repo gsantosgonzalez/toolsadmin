@@ -57,7 +57,7 @@
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-flag" aria-hidden="true"></i></span>
                                         <input type="text" class="form-control" name="tool_name" id="tool_name" placeholder="Nombre de la herramienta" v-model="newTool.name"/>
                                     </div>
-                                    <span v-if="formErrors['name']" class="error text-danger">{{ formErrors['name'] }}</span>
+                                    <span v-if="formErrors['name']" class="error text-danger">{{ formErrors.name[0] }}</span>
                                 </div>
                             </div>
 
@@ -68,7 +68,7 @@
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-flag" aria-hidden="true"></i></span>
                                         <input type="text" class="form-control" name="description" id="description" placeholder="Ingresa la descripción"  v-model="newTool.description"/>
                                     </div>
-                                    <span v-if="formErrors['description']" class="error text-danger">{{ formErrors['description'] }}</span>
+                                    <span v-if="formErrors['description']" class="error text-danger">{{ formErrors.description[0] }}</span>
                                 </div>
                             </div>
 
@@ -82,7 +82,7 @@
                                             <option v-for="toolType in toolTypes" v-bind:value="toolType.id">{{ toolType.name }}</option>
                                         </select>
                                     </div>
-                                    <span v-if="formErrors['toolType_id']" class="error text-danger">{{ formErrors['toolType_id'] }}</span>
+                                    <span v-if="formErrors['toolType_id']" class="error text-danger">{{ formErrors.toolType_id[0] }}</span>
                                 </div>
                             </div>                                
 

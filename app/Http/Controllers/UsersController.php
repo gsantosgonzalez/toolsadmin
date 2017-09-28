@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Auth;
 
 class UsersController extends Controller
 {
@@ -20,8 +21,13 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $userTypes = DB::table('user_type')->get();
-        return view('users/index')->with(['userTypes' => $userTypes]);
+        if (Auth::user() && Auth::user()->typeUser_id == 1){
+            $typeUsers = DB::table('type_users')->get();
+            return view('users/index')->with(['typeUsers' => $typeUsers]);
+        }
+        else {
+            return redirect('login');
+        }
     }
 
     /**

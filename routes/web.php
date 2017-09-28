@@ -70,15 +70,7 @@ Route::get('computers', function() {
 Route::post('computers', 'CatalogsController@addComputer');
 
 //Users
-Route::get('users', function(){
-	if (Auth::user() && Auth::user()->typeUser_id == 1){
-		$typeUsers = DB::table('type_users')->get();
-        return view('users/index')->with(['typeUsers' => $typeUsers]);
-	}
-	else {
-		return redirect('login');
-	}
-})->name('users');
+Route::get('users', 'UsersController@index')->name('users');
 Route::post('getUsers', function() {
 	$users = null;
     if (Auth::user() && Auth::user()->typeUser_id == 1){
@@ -95,3 +87,21 @@ Route::get('typeUsers', function() {
 	return $typeUsers;
 });
 
+Route::get('remoteLogin', function(){
+	$userdata = array(
+		'email' => request('email'),
+		'password' => request('password'),
+	);
+	//dd($userdata);
+	if(Auth::attempt($userdata)){
+		return response()->json([
+			'status' => 1,
+			'typeUser' => Auth::user()->typeUser_id
+		]);
+	}
+	return response()->json([
+		'status' => 0
+	]);
+});
+
+Route::post('send', 'MailController@sendMail')->name('send');

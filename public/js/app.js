@@ -42458,7 +42458,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })]), _vm._v(" "), (_vm.formErrors['name']) ? _c('span', {
     staticClass: "error text-danger"
-  }, [_vm._v(_vm._s(_vm.formErrors['name']))]) : _vm._e()])]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.formErrors.name[0]))]) : _vm._e()])]), _vm._v(" "), _c('div', {
     staticClass: "form-group"
   }, [_c('label', {
     staticClass: "control-label",
@@ -42492,7 +42492,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })]), _vm._v(" "), (_vm.formErrors['description']) ? _c('span', {
     staticClass: "error text-danger"
-  }, [_vm._v(_vm._s(_vm.formErrors['description']))]) : _vm._e()])]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.formErrors.description[0]))]) : _vm._e()])]), _vm._v(" "), _c('div', {
     staticClass: "form-group"
   }, [_c('label', {
     staticClass: "control-label",
@@ -42537,7 +42537,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v(_vm._s(toolType.name))])
   })], 2)]), _vm._v(" "), (_vm.formErrors['toolType_id']) ? _c('span', {
     staticClass: "error text-danger"
-  }, [_vm._v(_vm._s(_vm.formErrors['toolType_id']))]) : _vm._e()])]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.formErrors.toolType_id[0]))]) : _vm._e()])]), _vm._v(" "), _c('div', {
     staticClass: "form-group"
   }, [_c('button', {
     staticClass: "btn btn-primary",
@@ -43634,24 +43634,85 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             users: [],
+            updatedUser: {
+                'id': '',
+                'name': '',
+                'email': '',
+                'typeUser_id': ''
+            },
             prospect: { 'email': '', 'typeUser_id': '' },
-            formErrors: {},
+            formErrors: [],
+            formErrorsUpdate: [],
             typeUsers: []
         };
     },
     mounted: function mounted() {
         var _this = this;
 
-        axios.post('getUsers').then(function (response) {
-            $.each(response.data, function (index, val) {
-                _this.users.push(val);
-            });
-        });
+        this.getUsers();
         axios.get('typeUsers').then(function (response) {
             $.each(response.data, function (index, val) {
                 _this.typeUsers.push(val);
@@ -43660,9 +43721,65 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     methods: {
+        getUsers: function getUsers() {
+            var _this2 = this;
+
+            axios.post('getUsers').then(function (response) {
+                $.each(response.data, function (index, val) {
+                    _this2.users.push(val);
+                });
+            });
+        },
         cierraModal: function cierraModal(modal) {
             $('#' + modal).modal('hide');
-            this.prospect = { 'email': '', 'typeUser_id': '' }, this.formErrors = {};
+            this.prospect = { 'email': '', 'typeUser_id': '' };
+            this.updatedUser = { 'id': '', 'name': '', 'email': '', 'typeUser_id': '' };
+            this.formErrors = [];
+        },
+        registerUser: function registerUser() {
+            var _this3 = this;
+
+            axios.post('send', {
+                email: this.prospect.email,
+                typeUser_id: this.prospect.typeUser_id
+            }).then(function (response) {
+                //console.log(response);
+                if (response.data.status == 0) {
+                    toastr.error('Parece que algo salió mal.', '¡Error!', { timeOut: 5000 });
+                    _this3.formErrors = response.data.errors;
+                    setTimeout(function () {
+                        this.formErrors = [];
+                    }, 3000);
+                } else {
+                    toastr.success('La invitación se envió correctamente.', '¡Éxito!', { timeOut: 5000 });
+                    _this3.prospect = { 'email': '', 'typeUser_id': '' };
+                    $('#create-user').modal('hide');
+                }
+            });
+        },
+        editUser: function editUser(user) {
+            this.updatedUser = user;
+        },
+        updateUser: function updateUser(id) {
+            var self = this;
+            var input = this.updatedTool;
+            axios.post('/users/update', {
+                id: id,
+                input: input
+            }).then(function (response) {
+                if (response.data.status == 1) {
+                    toastr.success('Se actualizó correctamente.', '¡Éxito!', { timeOut: 5000 });
+                    self.updatedUser = { 'id': '', 'name': '', 'email': '', 'typeUser_id': '' };
+                    self.getUsers();
+                    $('#edit-user').modal('hide');
+                } else {
+                    toastr.error('Parece que algo salió mal.', '¡Error!', { timeOut: 5000 });
+                    self.formErrorsUpdate = response.data.errors;
+                    setTimeout(function () {
+                        self.formErrorsUpdate = {};
+                    }, 3000);
+                }
+            });
         }
     }
 });
@@ -43773,6 +43890,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Invitar Usuario")])]), _vm._v(" "), _c('div', {
     staticClass: "modal-body"
+  }, [_c('form', {
+    on: {
+      "submit": function($event) {
+        $event.preventDefault();
+        _vm.registerUser($event)
+      }
+    }
   }, [_c('div', {
     staticClass: "form-group"
   }, [_c('label', {
@@ -43794,7 +43918,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "email",
       "name": "user_email",
       "id": "user_email",
-      "placeholder": "Correo del usuario"
+      "placeholder": "Correo del usuario",
+      "required": ""
     },
     domProps: {
       "value": (_vm.prospect.email)
@@ -43807,7 +43932,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })]), _vm._v(" "), (_vm.formErrors['email']) ? _c('span', {
     staticClass: "error text-danger"
-  }, [_vm._v(_vm._s(_vm.formErrors['email']))]) : _vm._e()])]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.formErrors.email[0]))]) : _vm._e()])]), _vm._v(" "), _c('div', {
     staticClass: "form-group"
   }, [_c('label', {
     staticClass: "control-label",
@@ -43825,7 +43950,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }],
     staticClass: "form-control",
     attrs: {
-      "id": "typeSelect"
+      "id": "typeSelect",
+      "required": ""
     },
     on: {
       "change": function($event) {
@@ -43844,15 +43970,194 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "disabled": "",
       "selected": ""
     }
-  }, [_vm._v("Select your option")]), _vm._v(" "), _vm._l((_vm.typeUsers), function(typeUser) {
+  }, [_vm._v("Elige el rol")]), _vm._v(" "), _vm._l((_vm.typeUsers), function(typeUser) {
     return _c('option', {
       domProps: {
         "value": typeUser.id
       }
     }, [_vm._v(_vm._s(typeUser.name))])
-  })], 2)]), _vm._v(" "), (_vm.formErrors['typeUser.id']) ? _c('span', {
+  })], 2)]), _vm._v(" "), (_vm.formErrors['typeUser_id']) ? _c('span', {
     staticClass: "error text-danger"
-  }, [_vm._v(_vm._s(_vm.formErrors['typeUser.id']))]) : _vm._e()])]), _vm._v(" "), _vm._m(4)])])])])])])
+  }, [_vm._v(_vm._s(_vm.formErrors.typeUser_id[0]))]) : _vm._e()])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('button', {
+    staticClass: "btn btn-primary",
+    attrs: {
+      "type": "button",
+      "id": "button"
+    },
+    on: {
+      "click": _vm.registerUser
+    }
+  }, [_vm._v("Registrar")])])])])])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal fade",
+    attrs: {
+      "id": "edit-user",
+      "tabindex": "-1",
+      "role": "dialog",
+      "aria-labelledby": "myModalLabel"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog",
+    attrs: {
+      "role": "document"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content"
+  }, [_c('div', {
+    staticClass: "modal-header"
+  }, [_c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "aria-label": "Close"
+    },
+    on: {
+      "click": function($event) {
+        _vm.cierraModal('edit-user')
+      }
+    }
+  }, [_c('span', {
+    staticClass: "glyph-md"
+  }, [_vm._v("×")])]), _vm._v(" "), _c('h4', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "myModalLabel"
+    }
+  }, [_vm._v("Editar Usuario")])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-body"
+  }, [_c('form', {
+    attrs: {
+      "method": "POST"
+    }
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    staticClass: "control-label",
+    attrs: {
+      "for": "user_name"
+    }
+  }, [_vm._v("Nombre")]), _vm._v(" "), _c('div', [_c('div', {
+    staticClass: "input-group"
+  }, [_vm._m(4), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.updatedUser.name),
+      expression: "updatedUser.name"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "name": "user_name",
+      "id": "user_name",
+      "placeholder": _vm.updatedUser.name
+    },
+    domProps: {
+      "value": (_vm.updatedUser.name)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.updatedUser.name = $event.target.value
+      }
+    }
+  })]), _vm._v(" "), (_vm.formErrorsUpdate['name']) ? _c('span', {
+    staticClass: "error text-danger"
+  }, [_vm._v(_vm._s(_vm.formErrorsUpdate.name[0]))]) : _vm._e()])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    staticClass: "control-label",
+    attrs: {
+      "for": "email"
+    }
+  }, [_vm._v("E-mail")]), _vm._v(" "), _c('div', [_c('div', {
+    staticClass: "input-group"
+  }, [_vm._m(5), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.updatedUser.email),
+      expression: "updatedUser.email"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "email",
+      "name": "email",
+      "id": "email",
+      "placeholder": _vm.updatedUser.email
+    },
+    domProps: {
+      "value": (_vm.updatedUser.email)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.updatedUser.email = $event.target.value
+      }
+    }
+  })]), _vm._v(" "), (_vm.formErrorsUpdate['email']) ? _c('span', {
+    staticClass: "error text-danger"
+  }, [_vm._v(_vm._s(_vm.formErrorsUpdate.email[0]))]) : _vm._e()])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    staticClass: "control-label",
+    attrs: {
+      "for": "typeUser"
+    }
+  }, [_vm._v("Tipo")]), _vm._v(" "), _c('div', [_c('div', {
+    staticClass: "input-group"
+  }, [_vm._m(6), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.updatedUser.typeUser_id),
+      expression: "updatedUser.typeUser_id"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "id": "typeUserSelect"
+    },
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.updatedUser.typeUser_id = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "",
+      "disabled": "",
+      "selected": ""
+    }
+  }, [_vm._v("Select your option")]), _vm._v(" "), _vm._l((_vm.typeUsers), function(typeUser) {
+    return _c('option', {
+      class: [_vm.updatedUser.typeUser_id == typeUser.id ? 'selected' : ''],
+      domProps: {
+        "value": typeUser.id
+      }
+    }, [_vm._v(_vm._s(typeUser.name))])
+  })], 2)]), _vm._v(" "), (_vm.formErrorsUpdate['typeUser_id']) ? _c('span', {
+    staticClass: "error text-danger"
+  }, [_vm._v(_vm._s(_vm.formErrorsUpdate.typeUser[0]))]) : _vm._e()])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group "
+  }, [_c('button', {
+    staticClass: "btn btn-primary",
+    attrs: {
+      "type": "button",
+      "id": "button"
+    },
+    on: {
+      "click": function($event) {
+        _vm.updateUser(_vm.updatedUser.id)
+      }
+    }
+  }, [_vm._v("Actualizar")])])])])])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "row"
@@ -43891,15 +44196,32 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "form-group"
-  }, [_c('button', {
-    staticClass: "btn btn-primary",
+  return _c('span', {
+    staticClass: "input-group-addon"
+  }, [_c('i', {
+    staticClass: "glyphicon glyphicon-wrench",
     attrs: {
-      "type": "button",
-      "id": "button"
+      "aria-hidden": "true"
     }
-  }, [_vm._v("Registrar")])])
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
+    staticClass: "input-group-addon"
+  }, [_c('i', {
+    staticClass: "glyphicon glyphicon-pencil",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
+    staticClass: "input-group-addon"
+  }, [_c('i', {
+    staticClass: "glyphicon glyphicon-flag",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })])
 }]}
 module.exports.render._withStripped = true
 if (false) {
